@@ -1,0 +1,54 @@
+<form #frm="ngForm" *ngIf="!toggleForm"
+      style="width: 75%; background-color: #c1ebc7; margin-left: auto; margin-right: auto; padding: 20px">
+  <h2>Add Item</h2>
+  <div class="form-group">
+    <label for="">Name:</label>
+    <input class="form-control" type="text" name="itemName" ngModel="" required>
+  </div>
+  <div class="form-group">
+    <label for="">Quantity:</label>
+    <input class="form-control" type="number" name="itemQuantity" ngModel="" required>
+  </div>
+  <button type="submit" class="btn btn-success" (click)="addItem(frm)" [disabled]="frm.invalid">Add Item</button>
+</form>
+
+
+<form #editForm="ngForm" *ngIf="toggleForm"
+      style="width: 75%; background-color: beige; margin-left: auto; margin-right: auto; padding: 20px">
+  <h2>Edit Item</h2>
+  <div class="form-group">
+    <label for="">Name:</label>
+    <input class="form-control" type="text" name="itemName" [ngModel]="selectedItem.itemName" required>
+  </div>
+  <div class="form-group">
+    <label for="">Quantity:</label>
+    <input class="form-control" type="number" name="itemQuantity" [ngModel]="selectedItem.itemQuantity" required>
+  </div>
+  <button type="submit" class="btn btn-success" (click)="editItem(editForm)" [disabled]="editForm.invalid">Save</button>
+</form>
+
+<div style="padding: 20px; background-color: lightsteelblue;">
+  <h2>Shopping List</h2>
+  <div *ngFor="let item of shoppingItemList" class="row ">
+    <div class="col-sm-1">
+      <input type="checkbox" name="" [checked]="item.itemBrought" (click)="updateItemCheckbox(item)">
+    </div>
+    <div class="col-sm-3">
+      {{item.itemName}}
+    </div>
+
+    <div class="col-sm-2">
+      {{item.itemQuantity}}
+    </div>
+
+    <div class="col-sm-3">
+      <button type="button" name="" class="btn btn-primary" (click)="showEditForm(item)" [disabled]="toggleForm">Edit
+      </button>
+    </div>
+
+    <div class="col-sm-3">
+      <button type="button" name="" class="btn btn-danger" (click)="deleteItem(item.id)">Delete</button>
+      <br><br>
+    </div>
+  </div>
+</div>
