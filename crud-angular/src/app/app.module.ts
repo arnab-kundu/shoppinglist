@@ -11,12 +11,22 @@ import {ProductComponent} from './product/product.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
+import { AccountComponent } from './account/account.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ContactComponent } from './contact/contact.component';
 
 const ROUTES: Routes = [
   {path: '', component: HomeComponent},
   {path: 'product', component: ProductComponent},
   {path: 'product-detail', component: ProductDetailComponent},
   {path: 'page-not-found', component: PageNotFoundComponent},
+  {path: 'account', component: AccountComponent},
+  {path: 'wishlist', component: WishlistComponent},
+  {path: 'cart', component: CartComponent},
+  {path: 'checkout', component: CheckoutComponent},
+  {path: 'contact', component: ContactComponent},
   {path: 'crud', component: ShoppingItemComponent}
 ];
 
@@ -27,7 +37,12 @@ const ROUTES: Routes = [
     ProductComponent,
     ProductDetailComponent,
     PageNotFoundComponent,
-    ShoppingItemComponent
+    ShoppingItemComponent,
+    AccountComponent,
+    WishlistComponent,
+    CartComponent,
+    CheckoutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
