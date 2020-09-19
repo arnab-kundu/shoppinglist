@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require('mysql');
+let express = require('express');
+const router = express.Router();
+const mysql = require('mysql');
 
 
 /**
@@ -42,10 +42,15 @@ router.post('/add_product', function (req, res, next) {
  * GET product listing.
  * TYPE GET
  * http://localhost:3000/api/product/products
+ * http://localhost:3000/api/product/products?id=1
  */
 router.get('/products', function (req, res, next) {
 
-    var query = "SELECT * FROM `products` where id = 1;";
+    var query = "SELECT * FROM `products` limit 15;";
+    if (req.query.id !== undefined) {
+        query = "SELECT * FROM `products` where id = " + req.query.id + ";";
+    }
+
 
     var connection = mysql.createConnection({
         host: "localhost",
@@ -58,7 +63,7 @@ router.get('/products', function (req, res, next) {
             console.log("ERROR:", "DB conncetion error", err.message);
         } else {
             connection.query(query, function (err, result, fields) {
-                if (err) throw err
+                if (err) throw err;
                 console.log("REQUEST" + req.url);
                 //console.log("RESPONSE" + result);
                 res.send(result);

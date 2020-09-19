@@ -4,6 +4,7 @@ export class Product {
   group: string;
   category: string
   price: number;
+  price_without_discount: number;
   count: number;
   availability: string;
   review: number;
