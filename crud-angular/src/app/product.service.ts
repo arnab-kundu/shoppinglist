@@ -19,6 +19,11 @@ export class ProductService {
       .pipe(map(res => res.json()));
   }
 
+  getProductsByGroup(group: string) {
+    return this.http.get('http://' + Constant.IP + ':3000/api/product/products?group=' + group)
+      .pipe(map(res => res.json()));
+  }
+
   getProduct(id: number) {
     return this.http.get('http://' + Constant.IP + ':3000/api/product/products?id=' + id)
       .pipe(map(res => res.json()));

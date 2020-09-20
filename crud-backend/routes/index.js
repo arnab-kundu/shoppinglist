@@ -18,6 +18,7 @@ router.get('/', function (req, res, next) {
         "  `group` enum('Men','Women','Kids','Sports','Digital','Furniture') NOT NULL," +
         "  `category` enum('Casual','Sports','Formal','Standard','T-Shirts','Shirts','Jeans','Trousers','Sleep Wear','Sandals','Loafers','Kurta & Kurti','Sarees','Shoes','Rings','Earrings','Jewellery Sets','Lockets','Polo T-Shirts','SKirts','Jackets','Tops','Make Up','Hair Care','Perfumes','Skin Care','Hand Bags','Single Bags','Travel Bags','Wallets & Belts','Sunglases','Nail','Camera','Mobile','Tablet','Laptop','Accessories') NOT NULL," +
         "  `price` float unsigned NOT NULL," +
+        "  `price_without_discount` float unsigned DEFAULT NULL," +
         "  `count` smallint(11) unsigned NOT NULL, " +
         "  `availability` enum('In Stock','Out of Stock','Comming Soon') NOT NULL," +
         "  `review` smallint(11) unsigned NOT NULL," +

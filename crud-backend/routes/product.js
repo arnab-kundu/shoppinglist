@@ -49,14 +49,18 @@ router.get('/products', function (req, res, next) {
     var query = "SELECT * FROM `products` limit 15;";
     if (req.query.id !== undefined) {
         query = "SELECT * FROM `products` where id = " + req.query.id + ";";
+    } else if (req.query.limit !== undefined) {
+        query = "SELECT * FROM `products` limit " + req.query.limit + ";";
+    } else if (req.query.group !== undefined) {
+        query = "SELECT * FROM `products` where `group` = '" + req.query.group + "' limit 8;";
     }
-
+    console.log(query)
 
     var connection = mysql.createConnection({
         host: "localhost",
         user: "root",
         password: "password",
-        database: "shoppinglist"
+        database: "mydb"
     });
     connection.connect(function (err) {
         if (err) {
@@ -64,7 +68,7 @@ router.get('/products', function (req, res, next) {
         } else {
             connection.query(query, function (err, result, fields) {
                 if (err) throw err;
-                console.log("REQUEST" + req.url);
+                //console.log("REQUEST" + req.url);
                 //console.log("RESPONSE" + result);
                 res.send(result);
                 connection.end();
