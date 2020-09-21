@@ -165,7 +165,7 @@
           <!-- Left nav -->
           <ul class="nav navbar-nav">
             <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/">Home</a></li>
-            <li><a href="#">Men <span class="caret"></span></a>
+            <li><a routerLink="/product" [queryParams]="{'group':'Men'}">Men <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Casual</a></li>
                 <li><a href="#">Sports</a></li>
@@ -184,7 +184,7 @@
                 </li>
               </ul>
             </li>
-            <li><a href="#">Women <span class="caret"></span></a>
+            <li><a routerLink="/product" [queryParams]="{'group':'Women'}">Women <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Kurta & Kurti</a></li>
                 <li><a href="#">Trousers</a></li>
@@ -226,7 +226,7 @@
                 </li>
               </ul>
             </li>
-            <li><a href="#">Kids <span class="caret"></span></a>
+            <li><a routerLink="/product" [queryParams]="{'group':'Kids'}">Kids <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Casual</a></li>
                 <li><a href="#">Sports</a></li>
@@ -245,17 +245,17 @@
                 </li>
               </ul>
             </li>
-            <li><a routerLink="/product">Sports</a></li>
-            <li><a href="#">Digital <span class="caret"></span></a>
+            <li><a routerLink="/product" [queryParams]="{'group':'Sports'}">Sports</a></li>
+            <li><a routerLink="/product" [queryParams]="{'group':'Digital'}">Digital <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Camera</a></li>
                 <li><a href="#">Mobile</a></li>
                 <li><a href="#">Tablet</a></li>
                 <li><a href="#">Laptop</a></li>
-                <li><a href="#">Accesories</a></li>
+                <li><a href="#">Accessories</a></li>
               </ul>
             </li>
-            <li><a routerLink="/product">Furniture</a></li>
+            <li><a routerLink="/product" [queryParams]="{'group':'Furniture'}">Furniture</a></li>
             <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="blog-archive.html">Blog Style 1</a></li>

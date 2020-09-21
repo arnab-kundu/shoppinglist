@@ -2,8 +2,6 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {map} from 'rxjs/operators';
 import {Constant} from './constant';
-import {Observable} from 'rxjs/internal/Observable';
-import {Item} from './models/item';
 
 
 @Injectable({

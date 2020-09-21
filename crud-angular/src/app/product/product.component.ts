@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../product.service";
 import {Product} from "../models/product";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product',
@@ -20,9 +21,30 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  getProductsByGroup(group: string): void {
+    this.productService.getProductsByGroup(group).subscribe(products => {
+      this.products = products;
+    })
+  }
 
-  constructor(private productService: ProductService) {
-    this.getProducts();
+
+  constructor(private productService: ProductService, private route: ActivatedRoute) {
+
+    // snapshot for one time only get queryParamMap when constructor gets called
+    /*if (this.route.snapshot.queryParamMap.has('group')) {
+      this.getProductsByGroup(this.route.snapshot.queryParamMap.get('group'))
+    } else {
+      this.getProducts();
+    }*/
+
+    // Observer for queryParamMap keep on watching for changes
+    this.route.queryParamMap.subscribe((queryParamMap) => {
+      if (queryParamMap.has('group')) {
+        this.getProductsByGroup(queryParamMap.get('group'))
+      } else {
+        this.getProducts();
+      }
+    })
   }
 
   ngOnInit(): void {
