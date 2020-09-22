@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from "../models/product";
 import {ProductService} from "../product.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-detail',
@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) {
+  constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParamMap.subscribe((queryParamMap) => {
       if (queryParamMap.has('id')) {
         this.getProductById(queryParamMap.get('id'));
@@ -45,5 +45,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
   }
 }
