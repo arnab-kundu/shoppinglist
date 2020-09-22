@@ -48,7 +48,16 @@ router.get('/', function (req, res, next) {
         "  `last_seen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP," +
         "  KEY `user_id` (`user_id`)," +
         "  CONSTRAINT `recently_viewed_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE" +
-        ")";
+        ");";
+    let createCartTableQuery = "CREATE TABLE IF NOT EXISTS `cart` (" +
+        "  `user_id` int(11) NOT NULL," +
+        "  `product_id` int(11) NOT NULL," +
+        "  `product_count` tinyint(4) NOT NULL," +
+        "  KEY `user_id` (`user_id`)," +
+        "  KEY `product_id` (`product_id`)," +
+        "  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE," +
+        "  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE" +
+        ");";
 
     connection.connect(function (err) {
         if (err) {
@@ -68,8 +77,6 @@ router.get('/', function (req, res, next) {
                 console.log(err.code);
                 console.log(err.sqlMessage);
             }
-            //console.log(query);
-            //res.render('index', {title: 'Express'});
         });
 
         connection.query(createUserTableQuery, function (err, result, fields) {
@@ -77,7 +84,6 @@ router.get('/', function (req, res, next) {
                 console.log(err.code);
                 console.log(err.sqlMessage);
             }
-            //console.log(query);
         });
 
         connection.query(insertDataToUserTable, function (err, result, fields) {
@@ -85,8 +91,12 @@ router.get('/', function (req, res, next) {
                 console.log(err.code);
                 console.log(err.sqlMessage);
             }
-            //console.log(query);
-
+        });
+        connection.query(createCartTableQuery, function (err, result, fields) {
+            if (err) {
+                console.log(err.code);
+                console.log(err.sqlMessage);
+            }
         });
 
         connection.query(createRecentlyViewedTableQuery, function (err, result, fields) {
@@ -94,7 +104,6 @@ router.get('/', function (req, res, next) {
                 console.log(err.code);
                 console.log(err.sqlMessage);
             }
-            //console.log(query);
             res.render('index', {title: 'Express'});
         });
 
