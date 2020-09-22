@@ -13,6 +13,7 @@ export class ProductComponent implements OnInit {
 
   products: Product[] = [];
   group: string = "";
+  recentlyViewedProducts: Product[] = [];
 
   getProducts(): void {
     this.productService.getProducts().subscribe(products => {
@@ -27,7 +28,13 @@ export class ProductComponent implements OnInit {
       this.products = products;
     })
   }
+  getRecentlyViewedProducts(user_id: number) {
+    this.productService.getRecentlyViewedProducts(user_id).subscribe(recentlyViewedProducts => {
+      this.recentlyViewedProducts = recentlyViewedProducts;
 
+      console.log('data from data service ' + this.products);
+    });
+  }
 
   constructor(private productService: ProductService, private route: ActivatedRoute) {
 
@@ -46,7 +53,8 @@ export class ProductComponent implements OnInit {
       } else {
         this.getProducts();
       }
-    })
+    });
+    this.getRecentlyViewedProducts(1);
   }
 
   getProductById(id: number) {

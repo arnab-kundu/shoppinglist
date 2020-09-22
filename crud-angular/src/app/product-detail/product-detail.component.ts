@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {DataService} from "../data.service";
 import {Product} from "../models/product";
 import {ProductService} from "../product.service";
 import {ActivatedRoute} from "@angular/router";
@@ -28,10 +27,17 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+  setRecentlyViewedProduct(product_id: string) {
+    this.productService.setRecentlyViewedProduct(1, product_id).subscribe(data => {
+      console.log(data);
+    });
+  }
+
   constructor(private productService: ProductService, private route: ActivatedRoute) {
     this.route.queryParamMap.subscribe((queryParamMap) => {
       if (queryParamMap.has('id')) {
         this.getProductById(queryParamMap.get('id'));
+        this.setRecentlyViewedProduct(queryParamMap.get('id'));
       } else {
         this.getProducts();
       }

@@ -26,4 +26,14 @@ export class ProductService {
     return this.http.get('http://' + Constant.IP + ':3000/api/product/products?id=' + id)
       .pipe(map(res => res.json()));
   }
+
+  setRecentlyViewedProduct(user_id: number, product_id: string) {
+    return this.http.get('http://' + Constant.IP + ':3000/api/recently_viewed/add_product?user_id=' + user_id + '&product_id=' + product_id)
+      .pipe(map(res => res.json()));
+  }
+
+  getRecentlyViewedProducts(user_id: number) {
+    return this.http.get('http://' + Constant.IP + ':3000/api/recently_viewed/get_products?user_id=' + user_id)
+      .pipe(map(res => res.json()));
+  }
 }
