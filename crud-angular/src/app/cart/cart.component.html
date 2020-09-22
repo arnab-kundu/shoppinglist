@@ -36,30 +36,15 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td><a class="remove" href="#"><span class="fa fa-close"></span></a></td>
-                    <td><a href="#"><img src="../../assets/img/man/polo-shirt-1.png" alt="img"></a></td>
-                    <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                    <td>$250</td>
-                    <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                    <td>$250</td>
+                  <tr *ngFor="let product of products">
+                    <td><a class="remove" (click)="deleteProductFromCart(product.id)"><span class="fa fa-close"></span></a></td>
+                    <td><a routerLink="/product-detail" [queryParams]="{ id: product.id }"><img src="{{product.image_url}}" alt="img"></a></td>
+                    <td><a class="aa-cart-title" routerLink="/product-detail" [queryParams]="{ id: product.id }">{{product.name}}</a></td>
+                    <td>${{product.price}}</td>
+                    <td><input class="aa-cart-quantity" type="number" value={{product.product_count}}></td>
+                    <td>${{product.price * product.product_count}}</td>
                   </tr>
-                  <tr>
-                    <td><a class="remove" href="#"><span class="fa fa-close"></span></a></td>
-                    <td><a href="#"><img src="../../assets/img/man/polo-shirt-2.png" alt="img"></a></td>
-                    <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                    <td>$150</td>
-                    <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                    <td>$150</td>
-                  </tr>
-                  <tr>
-                    <td><a class="remove" href="#"><span class="fa fa-close"></span></a></td>
-                    <td><a href="#"><img src="../../assets/img/man/polo-shirt-3.png" alt="img"></a></td>
-                    <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                    <td>$50</td>
-                    <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                    <td>$50</td>
-                  </tr>
+
                   <tr>
                     <td colspan="6" class="aa-cart-view-bottom">
                       <div class="aa-cart-coupon">

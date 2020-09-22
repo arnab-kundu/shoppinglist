@@ -2,7 +2,7 @@ export class Product {
   id: number;
   name: string;
   group: string;
-  category: string
+  category: string;
   price: number;
   price_without_discount: number;
   count: number;
@@ -13,4 +13,5 @@ export class Product {
   image_url: string;
   image_url_1: string;
   image_url_2: string;
+  product_count: number;
 }
