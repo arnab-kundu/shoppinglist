@@ -9,7 +9,9 @@ const mysql = require('mysql');
  */
 router.get('/add_product', function (req, res, next) {
 
-    const query = "INSERT INTO `recently_viewed` VALUES(" + req.query.user_id + "," + req.query.product_id + ",CURRENT_TIMESTAMP);";
+    const query = "INSERT INTO `recently_viewed` (user_id,product_id,last_seen) " +
+        "VALUES(" + req.query.user_id + "," + req.query.product_id + ",CURRENT_TIMESTAMP) " +
+        "ON DUPLICATE KEY UPDATE last_seen = CURRENT_TIMESTAMP;";
     var connection = mysql.createConnection({
         host: "localhost",
         user: "root",

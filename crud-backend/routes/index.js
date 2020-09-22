@@ -43,10 +43,11 @@ router.get('/', function (req, res, next) {
 
     let insertDataToUserTable = "INSERT IGNORE INTO `users` VALUES(1,'Arnab','arnab@gmail.com','password');";
     let createRecentlyViewedTableQuery = "CREATE TABLE IF NOT EXISTS `recently_viewed` (" +
-        "  `user_id` int(11) NOT NULL," +
-        "  `product_id` int(11) NOT NULL," +
-        "  `last_seen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP," +
-        "  KEY `user_id` (`user_id`)," +
+        "  `user_id` int(11) NOT NULL, " +
+        "  `product_id` int(11) NOT NULL, " +
+        "  `last_seen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
+        "  PRIMARY KEY (`user_id`,`product_id`), " +
+        "  KEY `user_id` (`user_id`), " +
         "  CONSTRAINT `recently_viewed_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE" +
         ");";
     let createCartTableQuery = "CREATE TABLE IF NOT EXISTS `cart` (" +
