@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DataService} from "../data.service";
 import {Product} from "../models/product";
 import {ProductService} from "../product.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-detail',
@@ -21,11 +22,22 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  constructor(private productService: ProductService) {
-    this.getProducts();
+  getProductById(id: string): void {
+    this.productService.getProductById(id).subscribe(products => {
+      this.products = products;
+    });
+  }
+
+  constructor(private productService: ProductService, private route: ActivatedRoute) {
+    this.route.queryParamMap.subscribe((queryParamMap) => {
+      if (queryParamMap.has('id')) {
+        this.getProductById(queryParamMap.get('id'));
+      } else {
+        this.getProducts();
+      }
+    });
   }
 
   ngOnInit(): void {
   }
-
 }

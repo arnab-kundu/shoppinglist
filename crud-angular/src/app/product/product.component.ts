@@ -12,6 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 export class ProductComponent implements OnInit {
 
   products: Product[] = [];
+  group: string = "";
 
   getProducts(): void {
     this.productService.getProducts().subscribe(products => {
@@ -41,10 +42,15 @@ export class ProductComponent implements OnInit {
     this.route.queryParamMap.subscribe((queryParamMap) => {
       if (queryParamMap.has('group')) {
         this.getProductsByGroup(queryParamMap.get('group'))
+        this.group = queryParamMap.get('group')
       } else {
         this.getProducts();
       }
     })
+  }
+
+  getProductById(id: number) {
+    console.log(id);
   }
 
   ngOnInit(): void {

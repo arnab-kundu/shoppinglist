@@ -22,7 +22,7 @@ export class ProductService {
       .pipe(map(res => res.json()));
   }
 
-  getProduct(id: number) {
+  getProductById(id: string) {
     return this.http.get('http://' + Constant.IP + ':3000/api/product/products?id=' + id)
       .pipe(map(res => res.json()));
   }

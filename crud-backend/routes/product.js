@@ -60,7 +60,7 @@ router.get('/products', function (req, res, next) {
         host: "localhost",
         user: "root",
         password: "password",
-        database: "mydb"
+        database: "shoppinglist"
     });
     connection.connect(function (err) {
         if (err) {
