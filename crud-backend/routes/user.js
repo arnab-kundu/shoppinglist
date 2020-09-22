@@ -14,11 +14,11 @@ router.get('/users', function(req, res, next) {
         host: "localhost",
         user: "root",
         password: "password",
-        database: "xemplar_drive"
+        database: "shoppinglist"
     });
     connection.connect(function (err) {
         if (err) {
-            console.log("ERROR:", "DB conncetion error", err.message);
+            console.log("ERROR:", "DB connection error", err.message);
         } else {
             connection.query(query, function (err, result, fields) {
                 if (err) throw err

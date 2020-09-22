@@ -24,7 +24,7 @@ router.post('/add_product', function (req, res, next) {
     });
     connection.connect(function (err) {
         if (err) {
-            console.log("ERROR:", "DB conncetion error", err.message);
+            console.log("ERROR:", "DB connection error", err.message);
         } else {
             connection.query(query, function (err, result, fields) {
                 if (err) throw err;
@@ -64,7 +64,7 @@ router.get('/products', function (req, res, next) {
     });
     connection.connect(function (err) {
         if (err) {
-            console.log("ERROR:", "DB conncetion error", err.message);
+            console.log("ERROR:", "DB connection error", err.message);
         } else {
             connection.query(query, function (err, result, fields) {
                 if (err) throw err;
@@ -101,7 +101,7 @@ router.put('/', function (req, res, next) {
     });
     connection.connect(function (err) {
         if (err) {
-            console.log("ERROR:", "DB conncetion error", err.message);
+            console.log("ERROR:", "DB connection error", err.message);
         } else {
             connection.query(query, function (err, result, fields) {
                 if (err) throw err;
@@ -135,7 +135,7 @@ router.delete('/', function (req, res, next) {
     });
     connection.connect(function (err) {
         if (err) {
-            console.log("ERROR:", "DB conncetion error", err.message);
+            console.log("ERROR:", "DB connection error", err.message);
         } else {
             connection.query(query, function (err, result, fields) {
                 if (err) throw err;
