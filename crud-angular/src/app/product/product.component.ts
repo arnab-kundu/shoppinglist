@@ -28,11 +28,18 @@ export class ProductComponent implements OnInit {
       this.products = products;
     })
   }
+
   getRecentlyViewedProducts(user_id: number) {
     this.productService.getRecentlyViewedProducts(user_id).subscribe(recentlyViewedProducts => {
       this.recentlyViewedProducts = recentlyViewedProducts;
 
       console.log('data from data service ' + this.products);
+    });
+  }
+
+  addToCart(product_id: string) {
+    this.productService.addToCart('1', product_id).subscribe(data => {
+      console.log(data);
     });
   }
 

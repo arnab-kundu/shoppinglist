@@ -42,8 +42,8 @@
               </form>
             </div>
             <div class="aa-product-catg-head-right">
-              <a id="grid-catg" ><span class="fa fa-th"></span></a>
-              <a id="list-catg" ><span class="fa fa-list"></span></a>
+              <a id="grid-catg"><span class="fa fa-th"></span></a>
+              <a id="list-catg"><span class="fa fa-list"></span></a>
             </div>
           </div>
           <div class="aa-product-catg-body">
@@ -52,7 +52,7 @@
               <li>
                 <figure>
                   <a class="aa-product-img" routerLink="/product-detail" [queryParams]="{'id':product.id}"><img src="{{product.image_url}}" onerror="this.src='../../assets/img/sports/sport-2.png';" alt="polo shirt img"></a>
-                  <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                  <a class="aa-add-card-btn" (click)="addToCart(product.id)"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                   <figcaption>
                     <h4 class="aa-product-title"><a href="#">{{product.name}}</a></h4>
                     <span class="aa-product-price">${{product.price}}</span><span class="aa-product-price" *ngIf="(product.price_without_discount != null)"><del>${{product.price_without_discount}}</del></span>
@@ -243,7 +243,7 @@
                 <li>
                   <a routerLink="/product-detail" [queryParams]="{id:product.id}" class="aa-cartbox-img"><img alt="img" src="{{product.image_url}}" onerror="this.src='../../assets/img/woman-small-1.jpg';"></a>
                   <div class="aa-cartbox-info">
-                    <h4><a routerLink="/product-detail" [queryParams]="{id:product.id}" >{{product.name}}</a></h4>
+                    <h4><a routerLink="/product-detail" [queryParams]="{id:product.id}">{{product.name}}</a></h4>
                     <p> ${{product.price}}</p>
                   </div>
                 </li>

@@ -33,6 +33,12 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+  addToCart(product_id: string, numberOfProductSelected: string = '1') {
+    this.productService.addToCart('1', product_id, numberOfProductSelected).subscribe(data => {
+      console.log(data);
+    });
+  }
+
   constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParamMap.subscribe((queryParamMap) => {
       if (queryParamMap.has('id')) {
