@@ -9,7 +9,9 @@ const mysql = require('mysql');
  */
 router.get('/add_to_cart', function (req, res, next) {
 
-    const query = "INSERT INTO `cart` VALUES(" + req.query.user_id + "," + req.query.product_id + "," + req.query.count + ");";
+    const query = "INSERT INTO `cart` (user_id,product_id,product_count)" +
+        " VALUES(" + req.query.user_id + "," + req.query.product_id + "," + req.query.count + ")" +
+        " ON DUPLICATE KEY UPDATE product_count = " + req.query.count + ";";
     let connection = mysql.createConnection({
         host: "localhost",
         user: "root",

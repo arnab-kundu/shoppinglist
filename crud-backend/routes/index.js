@@ -54,6 +54,7 @@ router.get('/', function (req, res, next) {
         "  `user_id` int(11) NOT NULL," +
         "  `product_id` int(11) NOT NULL," +
         "  `product_count` tinyint(4) NOT NULL," +
+        "  PRIMARY KEY (`user_id`,`product_id`)," +
         "  KEY `user_id` (`user_id`)," +
         "  KEY `product_id` (`product_id`)," +
         "  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE," +
