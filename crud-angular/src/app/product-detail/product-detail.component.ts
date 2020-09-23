@@ -11,19 +11,19 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 })
 export class ProductDetailComponent implements OnInit {
 
-  products: Product[] = [];
+  product: Product;
 
   getProducts(): void {
     this.productService.getProducts().subscribe(products => {
-      this.products = products;
+      this.product = products[0];
 
-      console.log('data from data service ' + this.products);
+      console.log('data from data service ' + this.product);
     });
   }
 
   getProductById(id: string): void {
     this.productService.getProductById(id).subscribe(products => {
-      this.products = products;
+      this.product = products[0];
     });
   }
 
@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  addToCart(product_id: string, numberOfProductSelected: string = '1') {
+  addToCart(product_id: string, numberOfProductSelected: string) {
     this.productService.addToCart('1', product_id, numberOfProductSelected).subscribe(data => {
       console.log(data);
     });

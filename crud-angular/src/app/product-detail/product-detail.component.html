@@ -29,19 +29,19 @@
                 <div class="aa-product-view-slider">
                   <div id="demo-1" class="simpleLens-gallery-container">
                     <div class="simpleLens-container">
-                      <div class="simpleLens-big-image-container"><a data-lens-image="../../assets/img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="{{products[0].image_url}}" class="simpleLens-big-image"
+                      <div class="simpleLens-big-image-container"><a data-lens-image="../../assets/img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="{{product.image_url}}" class="simpleLens-big-image"
                                                                                                                                                                               onerror="this.src='../../assets/img/sports/sport-2.png';"></a>
                       </div>
                     </div>
                     <div class="simpleLens-thumbnails-container">
                       <a data-big-image="../../assets/img/view-slider/medium/polo-shirt-1.png" data-lens-image="../../assets/img/view-slider/large/polo-shirt-1.png" class="simpleLens-thumbnail-wrapper" href="#">
-                        <img src="{{products[0].image_url}}" onerror="this.src='../../assets/img/man-small-1.jpg';" style="height: 50px; width: 35px">
+                        <img src="{{product.image_url}}" onerror="this.src='../../assets/img/man-small-1.jpg';" style="height: 50px; width: 35px">
                       </a>
                       <a data-big-image="../../assets/img/view-slider/medium/polo-shirt-3.png" data-lens-image="../../assets/img/view-slider/large/polo-shirt-3.png" class="simpleLens-thumbnail-wrapper" href="#">
-                        <img src="{{products[0].image_url}}" onerror="this.src='../../assets/img/man-small-1.jpg';" style="height: 50px; width: 35px">
+                        <img src="{{product.image_url}}" onerror="this.src='../../assets/img/man-small-1.jpg';" style="height: 50px; width: 35px">
                       </a>
                       <a data-big-image="../../assets/img/view-slider/medium/polo-shirt-4.png" data-lens-image="../../assets/img/view-slider/large/polo-shirt-4.png" class="simpleLens-thumbnail-wrapper" href="#">
-                        <img src="{{products[0].image_url}}" onerror="this.src='../../assets/img/man-small-1.jpg';" style="height: 50px; width: 35px">
+                        <img src="{{product.image_url}}" onerror="this.src='../../assets/img/man-small-1.jpg';" style="height: 50px; width: 35px">
                       </a>
                     </div>
                   </div>
@@ -50,12 +50,12 @@
               <!-- Modal view content -->
               <div class="col-md-7 col-sm-7 col-xs-12">
                 <div class="aa-product-view-content">
-                  <h3>{{products[0].name}}</h3>
+                  <h3>{{product.name}}</h3>
                   <div class="aa-price-block">
-                    <span class="aa-product-view-price">${{products[0].price}}</span>
-                    <p class="aa-product-avilability">Availability: <span>{{products[0].availability}}</span></p>
+                    <span class="aa-product-view-price">${{product.price}}</span>
+                    <p class="aa-product-avilability">Availability: <span>{{product.availability}}</span></p>
                   </div>
-                  <p>{{products[0].short_description}}</p>
+                  <p>{{product.short_description}}</p>
                   <h4>Size</h4>
                   <div class="aa-prod-view-size">
                     <a href="#">S</a>
@@ -83,11 +83,11 @@
                       </select>
                     </form>
                     <p class="aa-prod-category">
-                      Category: <a href="#">{{products[0].category}}</a>
+                      Category: <a href="#">{{product.category}}</a>
                     </p>
                   </div>
                   <div class="aa-prod-view-bottom">
-                    <a class="aa-add-to-cart-btn" (click)="addToCart(products[0].id,'1')">Add To Cart</a>
+                    <a class="aa-add-to-cart-btn" (click)="addToCart(product.id,'1')">Add To Cart</a>
                     <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
                     <a class="aa-add-to-cart-btn" href="#">Compare</a>
                   </div>
