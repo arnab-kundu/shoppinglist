@@ -3,15 +3,15 @@ const router = express.Router();
 const mysql = require('mysql');
 
 /**
- * Add to Cart.
+ * Add to WishList.
  * TYPE GET
- * http://localhost:3000/api/cart/add_to_cart?user_id=1&product_id=1&count=1
+ * http://localhost:3000/api/wishlist/add_to_wishlist?user_id=1&product_id=1
  */
-router.get('/add_to_cart', function (req, res, next) {
+router.get('/add_to_wishlist', function (req, res, next) {
 
-    const query = "INSERT INTO `cart` (user_id,product_id,product_count)" +
-        " VALUES(" + req.query.user_id + "," + req.query.product_id + "," + req.query.count + ")" +
-        " ON DUPLICATE KEY UPDATE product_count = " + req.query.count + ";";
+    const query = "INSERT IGNORE INTO `wishlist` (user_id,product_id)" +
+        " VALUES(" + req.query.user_id + "," + req.query.product_id + ");" ;
+        //" ON DUPLICATE KEY UPDATE product_count = " + req.query.count + ";";
     let connection = mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -34,14 +34,14 @@ router.get('/add_to_cart', function (req, res, next) {
 
 
 /**
- * GET all products in Cart.
+ * GET all products in WishList.
  * TYPE GET
- * http://localhost:3000/api/cart/get_cart_products?user_id=1
+ * http://localhost:3000/api/wishlist/get_wishlist?user_id=1
  */
-router.get('/get_cart_products', function (req, res, next) {
+router.get('/get_wishlist', function (req, res, next) {
 
-    let query = "SELECT `products`.id,`products`.name,`products`.price,`products`.image_url, t1.product_count FROM `products` RIGHT JOIN(" +
-        "SELECT product_id, product_count FROM `cart` WHERE user_id = " + req.query.user_id +
+    let query = "SELECT `products`.id,`products`.name,`products`.price, `products`.availability, `products`.image_url FROM `products` RIGHT JOIN(" +
+        "SELECT product_id FROM `wishlist` WHERE user_id = " + req.query.user_id +
         ") AS t1 ON `products`.id= t1.product_id GROUP BY `products`.id	;";
     let connection = mysql.createConnection({
         host: "localhost",
@@ -66,13 +66,13 @@ router.get('/get_cart_products', function (req, res, next) {
 
 
 /**
- * DELETE product in Cart.
+ * DELETE product in Wishlist.
  * TYPE DELETE
- * http://localhost:3000/api/cart/remove_product?user_id=1&product_id=1
+ * http://localhost:3000/api/wishlist/remove_from_wishlist?user_id=1&product_id=1
  */
-router.delete('/remove_product', function (req, res, next) {
+router.delete('/remove_from_wishlist', function (req, res, next) {
 
-    let query = "DELETE FROM `cart` where user_id = " + req.query.user_id + " AND product_id = " + req.query.product_id + ";";
+    let query = "DELETE FROM `wishlist` where user_id = " + req.query.user_id + " AND product_id = " + req.query.product_id + ";";
     let connection = mysql.createConnection({
         host: "localhost",
         user: "root",

@@ -60,6 +60,14 @@ router.get('/', function (req, res, next) {
         "  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE," +
         "  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE" +
         ");";
+    let createWishListTableQuery = "CREATE TABLE IF NOT EXISTS `wishlist` (" +
+        "  `user_id` int(11) NOT NULL," +
+        "  `product_id` int(11) NOT NULL," +
+        "  PRIMARY KEY (`user_id`,`product_id`)," +
+        "  KEY `product_id` (`product_id`)," +
+        "  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE," +
+        "  CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE" +
+        ");";
 
     connection.connect(function (err) {
         if (err) {
@@ -95,6 +103,13 @@ router.get('/', function (req, res, next) {
             }
         });
         connection.query(createCartTableQuery, function (err, result, fields) {
+            if (err) {
+                console.log(err.code);
+                console.log(err.sqlMessage);
+            }
+        });
+
+        connection.query(createWishListTableQuery, function (err, result, fields) {
             if (err) {
                 console.log(err.code);
                 console.log(err.sqlMessage);

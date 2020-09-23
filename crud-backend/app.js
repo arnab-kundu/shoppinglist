@@ -13,6 +13,7 @@ var itemRouter = require('./routes/item');
 var productRouter = require('./routes/product');
 var recentlyViewedRouter = require('./routes/recently_viewd');
 var cartRouter = require('./routes/cart');
+var wishListRouter = require('./routes/wishlist');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/api/item', itemRouter);
 app.use('/api/product', productRouter);
 app.use('/api/recently_viewed', recentlyViewedRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/wishlist', wishListRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
