@@ -11,6 +11,7 @@ import {map} from "rxjs/operators";
 export class CartComponent implements OnInit {
 
   products: Product[] = [];
+  cartTotal: number = 0;
 
   constructor(private service: CartService) {
     this.getProductsInCart('1');
@@ -19,6 +20,7 @@ export class CartComponent implements OnInit {
   getProductsInCart(user_id: string) {
     this.service.getProductsInCart(user_id).subscribe(products => {
       this.products = products;
+      this.calculateTotal(products);
     })
   }
 
@@ -31,4 +33,9 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  calculateTotal(products: Product[]) {
+    for (let i = 0; i < this.products.length; i++) {
+      this.cartTotal += (products[i].price * products[i].product_count)
+    }
+  }
 }

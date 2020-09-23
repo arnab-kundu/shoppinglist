@@ -37,7 +37,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  addToCart(product_id: string) {
+  addToCart(product_id: number) {
     this.productService.addToCart('1', product_id).subscribe(data => {
       console.log(data);
     });

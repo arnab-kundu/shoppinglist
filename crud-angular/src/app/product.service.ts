@@ -37,7 +37,7 @@ export class ProductService {
       .pipe(map(res => res.json()));
   }
 
-  addToCart(user_id: string, product_id: string, count: string = '1') {
+  addToCart(user_id: string, product_id: number, count: number = 1) {
     return this.http.get('http://' + Constant.IP + ':3000/api/cart/add_to_cart?user_id=' + user_id + '&product_id=' + product_id + '&count=' + count)
       .pipe(map(res => res.json()));
   }

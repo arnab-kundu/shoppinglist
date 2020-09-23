@@ -41,7 +41,7 @@
                     <td><a routerLink="/product-detail" [queryParams]="{ id: product.id }"><img src="{{product.image_url}}" alt="img"></a></td>
                     <td><a class="aa-cart-title" routerLink="/product-detail" [queryParams]="{ id: product.id }">{{product.name}}</a></td>
                     <td>${{product.price}}</td>
-                    <td><input class="aa-cart-quantity" type="number" value={{product.product_count}}></td>
+                    <td><input class="aa-cart-quantity" type="number" disabled value={{product.product_count}}></td>
                     <td>${{product.price * product.product_count}}</td>
                   </tr>
 
@@ -69,7 +69,7 @@
                 </tr>
                 <tr>
                   <th>Total</th>
-                  <td>$450</td>
+                  <td>${{cartTotal}}</td>
                 </tr>
                 </tbody>
               </table>
