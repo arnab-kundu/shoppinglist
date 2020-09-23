@@ -42,4 +42,10 @@ export class ProductService {
       .pipe(map(res => res.json()));
   }
 
+
+  addToWishList(user_id: string, product_id: number) {
+    return this.http.get('http://' + Constant.IP + ':3000/api/wishlist/add_to_wishlist?user_id=' + user_id + '&product_id=' + product_id)
+      .pipe(map(res => res.json()));
+  }
+
 }

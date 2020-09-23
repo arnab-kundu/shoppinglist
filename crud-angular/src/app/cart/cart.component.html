@@ -38,7 +38,7 @@
                   <tbody>
                   <tr *ngFor="let product of products">
                     <td><a class="remove" (click)="deleteProductFromCart(product.id)"><span class="fa fa-close"></span></a></td>
-                    <td><a routerLink="/product-detail" [queryParams]="{ id: product.id }"><img src="{{product.image_url}}" alt="img"></a></td>
+                    <td><a routerLink="/product-detail" [queryParams]="{ id: product.id }"><img src="{{product.image_url}}" onerror="this.src='../../assets/img/man/polo-shirt-3.png';" alt="img"></a></td>
                     <td><a class="aa-cart-title" routerLink="/product-detail" [queryParams]="{ id: product.id }">{{product.name}}</a></td>
                     <td>${{product.price}}</td>
                     <td><input class="aa-cart-quantity" type="number" disabled value={{product.product_count}}></td>
@@ -65,7 +65,11 @@
                 <tbody>
                 <tr>
                   <th>Subtotal</th>
-                  <td>$450</td>
+                  <td>${{subTotal}}</td>
+                </tr>
+                <tr>
+                  <th>Tax(10%)</th>
+                  <td>${{tax}}</td>
                 </tr>
                 <tr>
                   <th>Total</th>

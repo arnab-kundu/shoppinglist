@@ -1,4 +1,3 @@
-
 <!-- catg header banner section -->
 <section id="aa-catg-head-banner">
   <img src="../../assets/img/fashion/fashion-header-bg-1.png" alt="fashion img">
@@ -37,29 +36,13 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td><a class="remove" href="#"><span class="fa fa-close"></span></a></td>
-                    <td><a href="#"><img src="../../assets/img/man/polo-shirt-1.png" alt="img"></a></td>
-                    <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                    <td>$250</td>
-                    <td>In Stock</td>
-                    <td><a href="#" class="aa-add-to-cart-btn">Add To Cart</a></td>
-                  </tr>
-                  <tr>
-                    <td><a class="remove" href="#"><span class="fa fa-close"></span></a></td>
-                    <td><a href="#"><img src="../../assets/img/man/polo-shirt-2.png" alt="img"></a></td>
-                    <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                    <td>$150</td>
-                    <td>In Stock</td>
-                    <td><a href="#" class="aa-add-to-cart-btn">Add To Cart</a></td>
-                  </tr>
-                  <tr>
-                    <td><a class="remove" href="#"><span class="fa fa-close"></span></a></td>
-                    <td><a href="#"><img src="../../assets/img/man/polo-shirt-3.png" alt="img"></a></td>
-                    <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                    <td>$50</td>
-                    <td>In Stock</td>
-                    <td><a href="#" class="aa-add-to-cart-btn">Add To Cart</a></td>
+                  <tr *ngFor="let product of products">
+                    <td><a class="remove" (click)="deleteProductFromWishList(product.id)"><span class="fa fa-close"></span></a></td>
+                    <td><a routerLink="/product-detail" [queryParams]="{id:product.id}"><img src="{{product.image_url}}" onerror="this.src='../../assets/img/man/polo-shirt-3.png';"  alt="img"></a></td>
+                    <td><a class="aa-cart-title" routerLink="/product-detail" [queryParams]="{id:product.id}">{{product.name}}</a></td>
+                    <td>${{product.price}}</td>
+                    <td>{{product.availability}}</td>
+                    <td><a routerLink="/cart" (click)="combineAction(product.id)" class="aa-add-to-cart-btn">Add To Cart</a></td>
                   </tr>
                   </tbody>
                 </table>

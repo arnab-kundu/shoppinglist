@@ -43,6 +43,12 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  addToWishList(user_id: string, product_id: number) {
+    this.productService.addToWishList('1', product_id).subscribe(data => {
+      console.log(data);
+    })
+  }
+
   constructor(private productService: ProductService, private route: ActivatedRoute) {
 
     // snapshot for one time only get queryParamMap when constructor gets called

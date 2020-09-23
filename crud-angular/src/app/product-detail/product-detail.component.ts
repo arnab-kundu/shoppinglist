@@ -39,6 +39,12 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+  addToWishList(user_id: string, product_id: number) {
+    this.productService.addToWishList('1', product_id).subscribe(data => {
+      console.log(data);
+    })
+  }
+
   constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParamMap.subscribe((queryParamMap) => {
       if (queryParamMap.has('id')) {

@@ -11,6 +11,8 @@ import {map} from "rxjs/operators";
 export class CartComponent implements OnInit {
 
   products: Product[] = [];
+  subTotal: number = 0;
+  tax: number = 0;
   cartTotal: number = 0;
 
   constructor(private service: CartService) {
@@ -27,6 +29,7 @@ export class CartComponent implements OnInit {
   deleteProductFromCart(product_id: string) {
     this.service.deleteProductFromCart('1', product_id).subscribe(products => {
       this.getProductsInCart('1');
+      this.calculateTotal(products);
     })
   }
 
@@ -34,8 +37,13 @@ export class CartComponent implements OnInit {
   }
 
   calculateTotal(products: Product[]) {
+    this.subTotal = 0;
+    this.tax = 0;
+    this.cartTotal = 0;
     for (let i = 0; i < this.products.length; i++) {
-      this.cartTotal += (products[i].price * products[i].product_count)
+      this.subTotal += (products[i].price * products[i].product_count)
     }
+    this.tax = this.subTotal * 10 / 100;
+    this.cartTotal = this.subTotal + this.tax;
   }
 }
