@@ -34,7 +34,7 @@ router.get('/', function (req, res, next) {
 
 
     let createUserTableQuery = "CREATE TABLE IF NOT EXISTS `users` (" +
-        "  `id` int(11) NOT NULL AUTO_INCREMENT," +
+        "  `id` varchar(50) NOT NULL," +
         "  `username` varchar(50) NOT NULL," +
         "  `email` varchar(50) NOT NULL," +
         "  `password` varchar(50) NOT NULL," +
@@ -43,7 +43,7 @@ router.get('/', function (req, res, next) {
 
     let insertDataToUserTable = "INSERT IGNORE INTO `users` VALUES(1,'Arnab','arnab@gmail.com','password');";
     let createRecentlyViewedTableQuery = "CREATE TABLE IF NOT EXISTS `recently_viewed` (" +
-        "  `user_id` int(11) NOT NULL, " +
+        "  `user_id` varchar(50) NOT NULL, " +
         "  `product_id` int(11) NOT NULL, " +
         "  `last_seen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
         "  PRIMARY KEY (`user_id`,`product_id`), " +
@@ -51,7 +51,7 @@ router.get('/', function (req, res, next) {
         "  CONSTRAINT `recently_viewed_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE" +
         ");";
     let createCartTableQuery = "CREATE TABLE IF NOT EXISTS `cart` (" +
-        "  `user_id` int(11) NOT NULL," +
+        "  `user_id` varchar(50) NOT NULL," +
         "  `product_id` int(11) NOT NULL," +
         "  `product_count` tinyint(4) NOT NULL," +
         "  PRIMARY KEY (`user_id`,`product_id`)," +
@@ -61,7 +61,7 @@ router.get('/', function (req, res, next) {
         "  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE" +
         ");";
     let createWishListTableQuery = "CREATE TABLE IF NOT EXISTS `wishlist` (" +
-        "  `user_id` int(11) NOT NULL," +
+        "  `user_id` varchar(50) NOT NULL," +
         "  `product_id` int(11) NOT NULL," +
         "  PRIMARY KEY (`user_id`,`product_id`)," +
         "  KEY `product_id` (`product_id`)," +
