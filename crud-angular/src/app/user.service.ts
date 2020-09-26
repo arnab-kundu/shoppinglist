@@ -20,4 +20,16 @@ export class UserService {
       .pipe(map(res => res.json()))
   }
 
+  register(user: User): Observable<User> {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://' + Constant.IP + ':3000/api/account/register', user, {headers: headers})
+      .pipe(map(res => res.json()))
+  }
+
+  getUserById(userId: string): Observable<User> {
+    return this.http.get('http://' + Constant.IP + ':3000/api/account/getUser?id=' + userId)
+      .pipe(map(res => res.json()))
+  }
+
 }

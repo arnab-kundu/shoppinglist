@@ -60,11 +60,12 @@
             <!-- / header top left -->
             <div class="aa-header-top-right">
               <ul class="aa-head-top-nav-right">
-                <li><a routerLink="/account">My Account</a></li>
+                <li><a routerLink="/account">{{username}}</a></li>
                 <li class="hidden-xs"><a routerLink="/wishlist">Wishlist</a></li>
                 <li class="hidden-xs"><a routerLink="/cart">My Cart</a></li>
                 <li class="hidden-xs"><a routerLink="/checkout">Checkout</a></li>
-                <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                <li><a href="" data-toggle="modal" data-target="#login-modal" *ngIf="username=='My Account'">Login</a></li>
+                <li><a routerLink="/account" *ngIf="username!='My Account'" (click)="logout()">Logout</a></li>
               </ul>
             </div>
           </div>
@@ -256,13 +257,13 @@
               </ul>
             </li>
             <li><a routerLink="/product" [queryParams]="{'group':'Furniture'}">Furniture</a></li>
-            <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
+            <!--<li><a href="blog-archive.html">Blog <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="blog-archive.html">Blog Style 1</a></li>
                 <li><a href="blog-archive-2.html">Blog Style 2</a></li>
                 <li><a href="blog-single.html">Blog Single</a></li>
               </ul>
-            </li>
+            </li>-->
             <li><a routerLink="/contact">Contact</a></li>
             <li><a>Pages <span class="caret"></span></a>
               <ul class="dropdown-menu">

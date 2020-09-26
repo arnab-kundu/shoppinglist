@@ -92,7 +92,7 @@ router.post('/login', function (req, res, next) {
 
 
 /**
- * EDIT ITEM
+ * EDIT User
  * TYPE PUT
  * http://localhost:3000/api/account/edit_user?id=1
  *
@@ -166,4 +166,44 @@ router.delete('/', function (req, res, next) {
 });
 
 
+/**
+ * Get User.
+ * TYPE GET
+ * http://localhost:3000/api/account/getUser?id=0d2ad590-fece-11ea-9959-ef927820ccec
+ */
+router.get('/getUser', function (req, res, next) {
+
+    var query = "SELECT * FROM `users` where id = '" + req.query.id + "';";
+    console.log(query);
+
+    var connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "password",
+        database: "shoppinglist"
+    });
+    connection.connect(function (err) {
+        if (err) {
+            console.log("ERROR:", "DB connection error", err.message);
+        } else {
+            connection.query(query, function (err, result, fields) {
+                if (err) throw err;
+                //console.log("REQUEST" + req.url);
+                //console.log("RESPONSE" + result);
+                if (result.length >= 1)
+                    res.send(result[0]);
+                else {
+                    //res.status(401) //TODO send 401
+                    res.send({
+                        "id": "-1",
+                        "username": "noname",
+                        "email": "na",
+                        "password": ""
+                    });
+                }
+                connection.end();
+            });
+        }
+    });
+});
 module.exports = router;

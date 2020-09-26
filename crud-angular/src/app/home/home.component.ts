@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(private service: ProductService) {
-    this.getProductsByGroup("Men")
+    this.getProductsByGroup("Men");
   }
 
   ngOnInit(): void {
