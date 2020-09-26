@@ -10,7 +10,7 @@ const mysql = require('mysql');
 router.get('/add_to_cart', function (req, res, next) {
 
     const query = "INSERT INTO `cart` (user_id,product_id,product_count)" +
-        " VALUES(" + req.query.user_id + "," + req.query.product_id + "," + req.query.count + ")" +
+        " VALUES('" + req.query.user_id + "'," + req.query.product_id + "," + req.query.count + ")" +
         " ON DUPLICATE KEY UPDATE product_count = " + req.query.count + ";";
     let connection = mysql.createConnection({
         host: "localhost",
@@ -41,8 +41,8 @@ router.get('/add_to_cart', function (req, res, next) {
 router.get('/get_cart_products', function (req, res, next) {
 
     let query = "SELECT `products`.id,`products`.name,`products`.price,`products`.image_url, t1.product_count FROM `products` RIGHT JOIN(" +
-        "SELECT product_id, product_count FROM `cart` WHERE user_id = " + req.query.user_id +
-        ") AS t1 ON `products`.id= t1.product_id GROUP BY `products`.id	;";
+        "SELECT product_id, product_count FROM `cart` WHERE user_id = '" + req.query.user_id +
+        "') AS t1 ON `products`.id= t1.product_id GROUP BY `products`.id	;";
     let connection = mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -72,7 +72,7 @@ router.get('/get_cart_products', function (req, res, next) {
  */
 router.delete('/remove_product', function (req, res, next) {
 
-    let query = "DELETE FROM `cart` where user_id = " + req.query.user_id + " AND product_id = " + req.query.product_id + ";";
+    let query = "DELETE FROM `cart` where user_id = '" + req.query.user_id + "' AND product_id = " + req.query.product_id + ";";
     let connection = mysql.createConnection({
         host: "localhost",
         user: "root",

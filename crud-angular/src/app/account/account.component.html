@@ -25,18 +25,18 @@
             <div class="col-md-6">
               <div class="aa-myaccount-login">
                 <h4>Login</h4>
-                <form action="" class="aa-login-form">
+                <form action="" class="aa-login-form" #loginForm="ngForm">
                   <label for="">Username or Email address<span>*</span></label>
-                  <input type="text" placeholder="Username or email">
+                  <input type="text" placeholder="Username or email" name="email" ngModel="" required>
                   <label for="">Password<span>*</span></label>
-                  <input type="password" placeholder="Password">
-                  <button type="submit" class="aa-browse-btn">Login</button>
+                  <input type="password" placeholder="Password" name="password" ngModel="" required>
+                  <button type="submit" class="aa-browse-btn" (click)="login(loginForm)" [disabled]="loginForm.invalid">Login</button>
                   <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
                   <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
                 </form>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" hidden>
               <div class="aa-myaccount-register">
                 <h4>Register</h4>
                 <form action="" class="aa-login-form">

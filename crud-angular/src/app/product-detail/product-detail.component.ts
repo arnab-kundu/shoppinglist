@@ -12,6 +12,7 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 export class ProductDetailComponent implements OnInit {
 
   product: Product;
+  user_id = '-1';
 
   getProducts(): void {
     this.productService.getProducts().subscribe(products => {
@@ -28,24 +29,28 @@ export class ProductDetailComponent implements OnInit {
   }
 
   setRecentlyViewedProduct(product_id: string) {
-    this.productService.setRecentlyViewedProduct(1, product_id).subscribe(data => {
+    this.productService.setRecentlyViewedProduct(this.user_id, product_id).subscribe(data => {
       console.log(data);
     });
   }
 
   addToCart(product_id: number, numberOfProductSelected: number) {
-    this.productService.addToCart('1', product_id, numberOfProductSelected).subscribe(data => {
+    this.productService.addToCart(this.user_id, product_id, numberOfProductSelected).subscribe(data => {
       console.log(data);
     });
   }
 
   addToWishList(user_id: string, product_id: number) {
-    this.productService.addToWishList('1', product_id).subscribe(data => {
+    this.productService.addToWishList(this.user_id, product_id).subscribe(data => {
       console.log(data);
     })
   }
 
   constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) {
+    if (localStorage.getItem('token') != null) {
+      this.user_id = localStorage.getItem('token')
+    }
+    console.log('token: '+localStorage.getItem('token'));
     this.route.queryParamMap.subscribe((queryParamMap) => {
       if (queryParamMap.has('id')) {
         this.getProductById(queryParamMap.get('id'));

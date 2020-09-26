@@ -56,7 +56,7 @@ router.post('/register', function (req, res, next) {
  */
 router.post('/login', function (req, res, next) {
 
-    var query = "SELECT id FROM `users` where email = '" + req.body.email + "' AND password = '" + req.body.password + "';";
+    var query = "SELECT * FROM `users` where email = '" + req.body.email + "' AND password = '" + req.body.password + "';";
     console.log(query);
 
     var connection = mysql.createConnection({
@@ -73,7 +73,17 @@ router.post('/login', function (req, res, next) {
                 if (err) throw err;
                 //console.log("REQUEST" + req.url);
                 //console.log("RESPONSE" + result);
-                res.send(result);
+                if (result.length >= 1)
+                    res.send(result[0]);
+                else {
+                    //res.status(401) //TODO send 401
+                    res.send({
+                        "id": "-1",
+                        "username": "noname",
+                        "email": "na",
+                        "password": ""
+                    });
+                }
                 connection.end();
             });
         }

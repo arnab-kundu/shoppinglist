@@ -41,7 +41,7 @@ router.get('/', function (req, res, next) {
         "  PRIMARY KEY (`id`)" +
         ")";
 
-    let insertDataToUserTable = "INSERT IGNORE INTO `users` VALUES(1,'Arnab','arnab@gmail.com','password');";
+    let insertDataToUserTable = "INSERT IGNORE INTO `users` VALUES(-1,'no_name','no_name@gmail.com','na');";
     let createRecentlyViewedTableQuery = "CREATE TABLE IF NOT EXISTS `recently_viewed` (" +
         "  `user_id` varchar(50) NOT NULL, " +
         "  `product_id` int(11) NOT NULL, " +

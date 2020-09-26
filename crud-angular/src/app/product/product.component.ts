@@ -14,6 +14,7 @@ export class ProductComponent implements OnInit {
   products: Product[] = [];
   group: string = "";
   recentlyViewedProducts: Product[] = [];
+  user_id = '-1';
 
   getProducts(): void {
     this.productService.getProducts().subscribe(products => {
@@ -29,7 +30,7 @@ export class ProductComponent implements OnInit {
     })
   }
 
-  getRecentlyViewedProducts(user_id: number) {
+  getRecentlyViewedProducts(user_id: string) {
     this.productService.getRecentlyViewedProducts(user_id).subscribe(recentlyViewedProducts => {
       this.recentlyViewedProducts = recentlyViewedProducts;
 
@@ -38,19 +39,22 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(product_id: number) {
-    this.productService.addToCart('1', product_id).subscribe(data => {
+    this.productService.addToCart(this.user_id, product_id).subscribe(data => {
       console.log(data);
     });
   }
 
   addToWishList(user_id: string, product_id: number) {
-    this.productService.addToWishList('1', product_id).subscribe(data => {
+    this.productService.addToWishList(this.user_id, product_id).subscribe(data => {
       console.log(data);
     })
   }
 
   constructor(private productService: ProductService, private route: ActivatedRoute) {
-
+    if (localStorage.getItem('token') != null) {
+      this.user_id = localStorage.getItem('token')
+    }
+    console.log('token: '+localStorage.getItem('token'));
     // snapshot for one time only get queryParamMap when constructor gets called
     /*if (this.route.snapshot.queryParamMap.has('group')) {
       this.getProductsByGroup(this.route.snapshot.queryParamMap.get('group'))
@@ -67,7 +71,7 @@ export class ProductComponent implements OnInit {
         this.getProducts();
       }
     });
-    this.getRecentlyViewedProducts(1);
+    this.getRecentlyViewedProducts(this.user_id);
   }
 
   getProductById(id: number) {

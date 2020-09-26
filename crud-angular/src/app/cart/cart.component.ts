@@ -14,9 +14,13 @@ export class CartComponent implements OnInit {
   subTotal: number = 0;
   tax: number = 0;
   cartTotal: number = 0;
+  user_id = '-1';
 
   constructor(private service: CartService) {
-    this.getProductsInCart('1');
+    if (localStorage.getItem('token') != null) {
+      this.user_id = localStorage.getItem('token')
+    }
+    this.getProductsInCart(this.user_id);
   }
 
   getProductsInCart(user_id: string) {
@@ -27,8 +31,8 @@ export class CartComponent implements OnInit {
   }
 
   deleteProductFromCart(product_id: string) {
-    this.service.deleteProductFromCart('1', product_id).subscribe(products => {
-      this.getProductsInCart('1');
+    this.service.deleteProductFromCart(this.user_id, product_id).subscribe(products => {
+      this.getProductsInCart(this.user_id);
       this.calculateTotal(products);
     })
   }

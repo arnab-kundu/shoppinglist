@@ -10,7 +10,7 @@ const mysql = require('mysql');
 router.get('/add_to_wishlist', function (req, res, next) {
 
     const query = "INSERT IGNORE INTO `wishlist` (user_id,product_id)" +
-        " VALUES(" + req.query.user_id + "," + req.query.product_id + ");" ;
+        " VALUES('" + req.query.user_id + "'," + req.query.product_id + ");" ;
         //" ON DUPLICATE KEY UPDATE product_count = " + req.query.count + ";";
     let connection = mysql.createConnection({
         host: "localhost",
@@ -41,8 +41,8 @@ router.get('/add_to_wishlist', function (req, res, next) {
 router.get('/get_wishlist', function (req, res, next) {
 
     let query = "SELECT `products`.id,`products`.name,`products`.price, `products`.availability, `products`.image_url FROM `products` RIGHT JOIN(" +
-        "SELECT product_id FROM `wishlist` WHERE user_id = " + req.query.user_id +
-        ") AS t1 ON `products`.id= t1.product_id GROUP BY `products`.id	;";
+        "SELECT product_id FROM `wishlist` WHERE user_id = '" + req.query.user_id +
+        "') AS t1 ON `products`.id= t1.product_id GROUP BY `products`.id	;";
     let connection = mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -72,7 +72,7 @@ router.get('/get_wishlist', function (req, res, next) {
  */
 router.delete('/remove_from_wishlist', function (req, res, next) {
 
-    let query = "DELETE FROM `wishlist` where user_id = " + req.query.user_id + " AND product_id = " + req.query.product_id + ";";
+    let query = "DELETE FROM `wishlist` where user_id = '" + req.query.user_id + "' AND product_id = " + req.query.product_id + ";";
     let connection = mysql.createConnection({
         host: "localhost",
         user: "root",

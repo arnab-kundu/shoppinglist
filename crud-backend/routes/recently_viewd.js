@@ -10,7 +10,7 @@ const mysql = require('mysql');
 router.get('/add_product', function (req, res, next) {
 
     const query = "INSERT INTO `recently_viewed` (user_id,product_id,last_seen) " +
-        "VALUES(" + req.query.user_id + "," + req.query.product_id + ",CURRENT_TIMESTAMP) " +
+        "VALUES('" + req.query.user_id + "'," + req.query.product_id + ",CURRENT_TIMESTAMP) " +
         "ON DUPLICATE KEY UPDATE last_seen = CURRENT_TIMESTAMP;";
     var connection = mysql.createConnection({
         host: "localhost",
@@ -42,7 +42,7 @@ router.get('/add_product', function (req, res, next) {
 router.get('/get_products', function (req, res, next) {
 
     var query = "SELECT `products`.* FROM `products` RIGHT JOIN(" +
-        "SELECT product_id, last_seen FROM `recently_viewed` WHERE user_id = " + req.query.user_id + " GROUP BY product_id ORDER BY last_seen DESC LIMIT 3" +
+        "SELECT product_id, last_seen FROM `recently_viewed` WHERE user_id = '" + req.query.user_id + "' GROUP BY product_id ORDER BY last_seen DESC LIMIT 3" +
         ") AS t1 ON `products`.id = t1.product_id;";
     var connection = mysql.createConnection({
         host: "localhost",

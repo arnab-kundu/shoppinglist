@@ -11,6 +11,7 @@ import {ProductService} from "../product.service";
 export class WishlistComponent implements OnInit {
 
   products: Product[] = [];
+  user_id = '-1';
 
   getProductsInWishList(user_id: string) {
     this.service.getProductsInWishList(user_id).subscribe(products => {
@@ -19,25 +20,28 @@ export class WishlistComponent implements OnInit {
   }
 
   deleteProductFromWishList(product_id: string) {
-    this.service.deleteProductFromWishList('1', product_id).subscribe(products => {
-      this.getProductsInWishList('1');
+    this.service.deleteProductFromWishList(this.user_id, product_id).subscribe(products => {
+      this.getProductsInWishList(this.user_id);
     })
   }
 
   addToCart(product_id: number) {
-    this.productService.addToCart('1', product_id, 1).subscribe(data => {
+    this.productService.addToCart(this.user_id, product_id, 1).subscribe(data => {
       console.log(data);
     });
   }
 
-  combineAction(product_id: number){
+  combineAction(product_id: number) {
     this.addToCart(product_id);
-    this.deleteProductFromWishList(product_id+"");
+    this.deleteProductFromWishList(product_id + "");
   }
 
 
   constructor(private service: WishlistService, private productService: ProductService) {
-    this.getProductsInWishList('1');
+    if (localStorage.getItem('token') != null) {
+      this.user_id = localStorage.getItem('token')
+    }
+    this.getProductsInWishList(this.user_id);
   }
 
 
