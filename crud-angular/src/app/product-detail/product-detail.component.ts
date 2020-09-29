@@ -13,6 +13,14 @@ export class ProductDetailComponent implements OnInit {
 
   product: Product;
   user_id = '-1';
+  items = [
+    {id: 1, value: 1},
+    {id: 2, value: 2},
+    {id: 3, value: 3},
+    {id: 4, value: 4},
+    {id: 5, value: 5}
+  ];
+  selectedItemCount = 1;
 
   getProducts(): void {
     this.productService.getProducts().subscribe(products => {
@@ -50,7 +58,7 @@ export class ProductDetailComponent implements OnInit {
     if (localStorage.getItem('token') != null) {
       this.user_id = localStorage.getItem('token')
     }
-    console.log('token: '+localStorage.getItem('token'));
+    console.log('token: ' + localStorage.getItem('token'));
     this.route.queryParamMap.subscribe((queryParamMap) => {
       if (queryParamMap.has('id')) {
         this.getProductById(queryParamMap.get('id'));
@@ -68,5 +76,10 @@ export class ProductDetailComponent implements OnInit {
       }
       window.scrollTo(0, 0)
     });
+  }
+
+  selectCartProductCount(count) {
+    console.log(count);
+    this.selectedItemCount = count;
   }
 }

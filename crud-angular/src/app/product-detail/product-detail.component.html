@@ -72,14 +72,9 @@
                     <a href="#" class="aa-color-white"></a>
                   </div>
                   <div class="aa-prod-quantity">
-                    <form action="">
-                      <select id="" name="">
-                        <option selected="1" value="0">1</option>
-                        <option value="1">2</option>
-                        <option value="2">3</option>
-                        <option value="3">4</option>
-                        <option value="4">5</option>
-                        <option value="5">6</option>
+                    <form action="" #cartItem="ngForm">
+                      <select id="cartItem" name="cartItem" (change)="selectCartProductCount($event.target.value)" ngForm="" >
+                        <option [selected]="" [value]="item.value" *ngFor="let item of items">{{item.id}}</option>
                       </select>
                     </form>
                     <p class="aa-prod-category">
@@ -87,7 +82,7 @@
                     </p>
                   </div>
                   <div class="aa-prod-view-bottom">
-                    <a class="aa-add-to-cart-btn" (click)="addToCart(product.id,1)">Add To Cart</a>
+                    <a class="aa-add-to-cart-btn" (click)="addToCart(product.id,selectedItemCount)">Add To Cart</a>
                     <a class="aa-add-to-cart-btn" (click)="addToWishList('1',product.id)">Wishlist</a>
                     <a class="aa-add-to-cart-btn" href="#">Compare</a>
                   </div>
