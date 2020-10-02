@@ -15,6 +15,11 @@ export class ProductComponent implements OnInit {
   group: string = "";
   recentlyViewedProducts: Product[] = [];
   user_id = '-1';
+  items = [
+    {id: 1, value: 12},
+    {id: 2, value: 18},
+    {id: 3, value: 24}
+  ];
 
   getProducts(): void {
     this.productService.getProducts().subscribe(products => {
@@ -54,7 +59,7 @@ export class ProductComponent implements OnInit {
     if (localStorage.getItem('token') != null) {
       this.user_id = localStorage.getItem('token')
     }
-    console.log('token: '+localStorage.getItem('token'));
+    console.log('token: ' + localStorage.getItem('token'));
     // snapshot for one time only get queryParamMap when constructor gets called
     /*if (this.route.snapshot.queryParamMap.has('group')) {
       this.getProductsByGroup(this.route.snapshot.queryParamMap.get('group'))
@@ -79,6 +84,15 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  getProductsOfPageSize(pageSize) {
+    console.log(pageSize);
+    this.productService.getProducts(pageSize).subscribe(products => {
+      this.products = products;
+
+      console.log('data from data service ' + this.products);
+    });
   }
 
 }

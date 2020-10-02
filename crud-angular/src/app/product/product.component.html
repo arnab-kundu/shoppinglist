@@ -34,10 +34,8 @@
               </form>
               <form action="" class="aa-show-form">
                 <label for="">Show</label>
-                <select name="">
-                  <option href="#" value="1" selected="12">12</option>
-                  <option href="#" value="2">24</option>
-                  <option href="#" value="3">36</option>
+                <select name="" (change)="getProductsOfPageSize($event.target.value)">
+                  <option *ngFor="let i of items" [value]="i.value">{{i.value}}</option>
                 </select>
               </form>
             </div>

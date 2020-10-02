@@ -46,7 +46,7 @@ router.post('/add_product', function (req, res, next) {
  */
 router.get('/products', function (req, res, next) {
 
-    var query = "SELECT * FROM `products` limit 15;";
+    var query = "SELECT * FROM `products` limit 12;";
     if (req.query.id !== undefined) {
         query = "SELECT * FROM `products` where id = " + req.query.id + ";";
     } else if (req.query.limit !== undefined) {

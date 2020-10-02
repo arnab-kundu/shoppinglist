@@ -12,8 +12,8 @@ export class ProductService {
   constructor(private http: Http) {
   }
 
-  getProducts() {
-    return this.http.get('http://' + Constant.IP + ':3000/api/product/products')
+  getProducts(pageSize: number = 12) {
+    return this.http.get('http://' + Constant.IP + ':3000/api/product/products?limit=' + pageSize)
       .pipe(map(res => res.json()));
   }
 
