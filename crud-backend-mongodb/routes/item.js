@@ -63,8 +63,21 @@ router.put('/', function (req, res, next) {
         })
 });
 
+
+/**
+ * DELETE ITEM
+ * TYPE DELETE
+ * http://localhost:3000/api/item?id=1
+ */
 router.delete('/', function (req, res, next) {
-    res.send("delete_item");
+    Item.deleteOne({"_id": req.query.id},
+        function (err, result) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(result);
+            }
+        });
 });
 
 module.exports = router;
