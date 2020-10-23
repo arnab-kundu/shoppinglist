@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const Item = require('../model/shoppingItem');
 
 router.post('/add_item', (req, res, next) => {
     res.send("add_item");
