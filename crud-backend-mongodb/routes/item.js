@@ -25,8 +25,22 @@ router.post('/add_item', (req, res, next) => {
     });
 });
 
+
+/**
+ * GET ITEM listing.
+ * TYPE GET
+ * http://localhost:3000/api/item/items
+ */
 router.get('/items', (req, res, next) => {
-    res.send("get_items");
+    console.log("get");
+    Item.find(function (err, items) {
+        if (err) {
+            res.json(err);
+        } else {
+            console.log(items);
+            res.json(items)
+        }
+    })
 });
 
 router.put('/', function (req, res, next) {
