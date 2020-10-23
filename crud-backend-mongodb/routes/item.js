@@ -50,6 +50,12 @@ router.get('/items', (req, res, next) => {
  */
 router.put('/', function (req, res, next) {
     //console.log(req.query);
+    /**
+     * params can be use this way
+     * @url     http://localhost:3000/api/item/1
+     * @method  router.put('/:id', function (req, res, next) {
+     * @code    console.log(req.params.id);
+     */
     Item.findOneAndUpdate(
         {_id: req.query.id},
         { $set: { itemName: req.body.itemName, itemQuantity: req.body.itemQuantity, itemBrought: req.body.itemBrought }},
