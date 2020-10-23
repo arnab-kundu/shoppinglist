@@ -10,7 +10,7 @@ const Item = require('../model/shoppingItem');
  * { id: 0, itemName: 'Mobile', itemQuantity: 1, itemBrought: false }
  */
 router.post('/add_item', (req, res, next) => {
-    console.log(req.url);
+    //console.log(req.body);
     let newShoppingItem = new Item({
         itemName: req.body.itemName,
         itemQuantity: req.body.itemQuantity,
@@ -32,12 +32,11 @@ router.post('/add_item', (req, res, next) => {
  * http://localhost:3000/api/item/items
  */
 router.get('/items', (req, res, next) => {
-    console.log("get");
     Item.find(function (err, items) {
         if (err) {
             res.json(err);
         } else {
-            console.log(items);
+            //console.log(items);
             res.json(items)
         }
     })
@@ -50,7 +49,7 @@ router.get('/items', (req, res, next) => {
  * http://localhost:3000/api/item?id=1
  */
 router.put('/', function (req, res, next) {
-    console.log(req.query.id);
+    //console.log(req.query);
     Item.findOneAndUpdate(
         {_id: req.query.id},
         { $set: { itemName: req.body.itemName, itemQuantity: req.body.itemQuantity, itemBrought: req.body.itemBrought }},
