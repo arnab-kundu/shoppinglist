@@ -41,7 +41,7 @@ export class ShoppingItemComponent implements OnInit {
     console.log(id);
     this.dataService.deleteShopping(id)
       .subscribe(data => {
-        if (data.affectedRows === 1) {
+        if (data.affectedRows === 1 || data.deletedCount === 1) { //mongodb(deletedCount) response different than mysql(affectedRows)
           for (let i = 0; i < this.shoppingItemList.length; i++) {
             if (id === this.shoppingItemList[i].id) {
               this.shoppingItemList.splice(i, 1);
