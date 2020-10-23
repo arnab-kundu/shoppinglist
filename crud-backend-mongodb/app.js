@@ -4,6 +4,25 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+/**
+ * @see https://www.npmjs.com/package/@meanie/mongoose-to-json
+ * This plugin will normalize JSON output for client side applications from:
+
+ {
+   "_id": "400e8324a71d4410b9dc3980b5f8cdea",
+   "__v": 2,
+   "name": "Item A"
+ }
+
+ * To a cleaner:
+
+ {
+   "id": "400e8324a71d4410b9dc3980b5f8cdea",
+   "name": "Item A"
+ }
+ */
+const toJson = require('@meanie/mongoose-to-json');
+mongoose.plugin(toJson);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
