@@ -23,13 +23,14 @@ var mongoose = require('mongoose');
  */
 const toJson = require('@meanie/mongoose-to-json');
 mongoose.plugin(toJson);
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var itemRouter = require('./routes/item');
 
 var app = express();
-
+app.use(cors());
 //connect to Mongodb
 mongoose.connect('mongodb://localhost:27017/shoppinglist');
 
