@@ -43,8 +43,24 @@ router.get('/items', (req, res, next) => {
     })
 });
 
+
+/**
+ * EDIT ITEM
+ * TYPE PUT
+ * http://localhost:3000/api/item?id=1
+ */
 router.put('/', function (req, res, next) {
-    res.send("update_item");
+    console.log(req.query.id);
+    Item.findOneAndUpdate(
+        {_id: req.query.id},
+        { $set: { itemName: req.body.itemName, itemQuantity: req.body.itemQuantity, itemBrought: req.body.itemBrought }},
+        function (err, result) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(result);
+            }
+        })
 });
 
 router.delete('/', function (req, res, next) {
