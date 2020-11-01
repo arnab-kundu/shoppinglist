@@ -60,7 +60,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', usersRouter);
 app.use('/api/item', itemRouter);
 app.use('/api/product', productRouter);
 app.use('/api/recently_viewed', recentlyViewedRouter);
