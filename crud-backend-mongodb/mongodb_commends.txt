@@ -120,3 +120,30 @@ db.posts.find({"student_id" : 100000});
 
 db.posts.dropIndex({"student_id" : 1});
 db.posts.find({"student_id" : 100000});
+
+13 - MongoDB Aggregation
+=========================
+db.emp.aggregate([{ $group : {_id : "$lastname", Count : {$sum:1} } }])
+
+14 - MongoDB BackUp and Restore
+================================
+->open cmd as admin then move to
+->cd C:\Program Files\MongoDB\Server\4.2\bin
+mongodump -> will create dump folder in the same location
+mongorestore -> will restore all dump database from dump folder
+mongodump --db mydb
+use mydb
+db.dropDatabase()
+show dbs
+mongorestore --db mydb dump/mydb
+show dbs
+
+Backup and Restore Collection
+------------------------------
+mongodump --db <database name> --collection <collection name>
+use <database name>
+db.<collection name>.drop()
+mongorestore -db <database name> --collcetion <collection name> dump/<database name>/collection name>.bson
+
+Note:Backup restore working in monogodb version 4.2 but not working in 4.4.1
+To check db version use-> db.version()
