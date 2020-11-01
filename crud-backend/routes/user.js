@@ -2,13 +2,15 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 
-/* GET users listing. */
-router.get('/users', function(req, res, next) {
 
-    console.log(req.query)
+/**
+ * GET user list
+ * TYPE GET
+ * http://localhost:3000/api/users
+ */
+router.get('/users', function (req, res, next) {
 
-
-    var query = "SELECT * FROM `user`"
+    var query = "SELECT * FROM `users`";
 
     var connection = mysql.createConnection({
         host: "localhost",
@@ -21,8 +23,7 @@ router.get('/users', function(req, res, next) {
             console.log("ERROR:", "DB connection error", err.message);
         } else {
             connection.query(query, function (err, result, fields) {
-                if (err) throw err
-                console.log("REQUEST" + req.url);
+                if (err) throw err;
                 res.send(result);
             });
         }
