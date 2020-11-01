@@ -28,6 +28,11 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var itemRouter = require('./routes/item');
+var productRouter = require('./routes/product');
+var recentlyViewedRouter = require('./routes/recently_viewd');
+var cartRouter = require('./routes/cart');
+var wishListRouter = require('./routes/wishlist');
+var accountRouter = require('./routes/account');
 
 var app = express();
 app.use(cors());
@@ -57,6 +62,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/item', itemRouter);
+app.use('/api/product', productRouter);
+app.use('/api/recently_viewed', recentlyViewedRouter);
+app.use('/api/cart', cartRouter);
+app.use('/api/wishlist', wishListRouter);
+app.use('/api/account', accountRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
