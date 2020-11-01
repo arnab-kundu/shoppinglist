@@ -38,7 +38,7 @@ router.get('/add_product', function (req, response, next) {
 /**
  * GET recently_viewed products.
  * TYPE GET
- * http://localhost:3000/api/recently_viewed/get_products?user_id=0d2ad590-fece-11ea-9959-ef927820ccec
+ * http://localhost:3000/api/recently_viewed/get_products?user_id=0d2ad390-fece-11ea-9959-ef927820ccec
  */
 router.get('/get_products', function (req, response, next) {
 
@@ -66,9 +66,15 @@ router.get('/get_products', function (req, response, next) {
 
             },
             {$match: {user_id: req.query.user_id}}
-        ]).limit(3).toArray(function (err, res) {
+        ]).limit(300).toArray(function (err, res) {
             if (err) throw err;
-            //console.log(JSON.stringify(res));
+            for (i in res) {
+                delete res[i]["_id"];
+                delete res[i]["user_id"];
+                delete res[i]["product_id"];
+                res[i]= res[i]["my_recently_viewed"][0];
+                delete res[i]["_id"];
+            }
             response.send(res);
             db.close();
         });

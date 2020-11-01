@@ -1,5 +1,7 @@
 let express = require('express');
 const router = express.Router();
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://127.0.0.1:27017/";
 
 
 /**
@@ -33,7 +35,28 @@ router.post('/register', function (req, res, next) {
 router.post('/login', function (req, res, next) {
 
     console.log(req.body);
+    var dbQuery = {};
+    if (req.body.email !== undefined && req.body.password !== undefined) {
+        dbQuery = {email: req.body.email, password: req.body.password}
+    } else {
+        res.send({"msg": "missing params"});
+        return;
+    }
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        const dbo = db.db("shoppinglist");
+        dbo.collection('users').find(dbQuery)
+            .toArray(function (err, result) {
+                if (err) throw err;
+                for (i in result) {
+                    delete result[i]._id;
+                }
+                res.send(result[0]);
+                //console.log(JSON.stringify(res));
+                db.close();
+            });
 
+    });
 });
 
 
