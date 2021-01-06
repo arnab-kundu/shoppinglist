@@ -1,5 +1,8 @@
 # CrudAngular
 
+Run `npm install -g @angular/cli` if Angular not installed in system. Need to install this only one time in any system.
+Run `npm install` to install all node modules. This also need to run only once for one project.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
 
 ## Development server
