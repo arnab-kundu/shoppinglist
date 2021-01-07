@@ -40,3 +40,19 @@ route
 
 npm install -> to install all node modules in package.json
 npm start -> to start server on localhost:3000 port
+
+### Language vs IDE
+| Language  | jetbrains IDE |Other IDE(Free)|
+|-----------|---------------|---------------|
+| JAVA      | intellij idea | eclipse       |
+| Ruby      | rubymine 	    | sublime       |
+| Angular   | webstorm 	    | atom          |
+| Php       | phpstorm 	    | netbeans      |
+| Python	  | pycharm 		  | jupyter       |
+| iOS       | appcode 		  | xcode         |
+| mysql     | datagrip 		  |mysql workbench|
+| mongodb	  | datagrip	    | mongodb       |
+| Postgres	| datagrip	    | pgAdmin       |
+| C / C++   | Clion 		    | Visual Studio for C ++|
+| .Net	    | rider 		    | visual studio |
+| GoLang	  | goland 		    | vscode        |
