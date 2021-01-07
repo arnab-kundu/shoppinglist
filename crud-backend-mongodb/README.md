@@ -52,6 +52,7 @@ db.emp.save([
 	{ "name" : "Harry", "lastname" : "Doe", "Rank" : 4 }
 ])
 ```
+~~`insert()`~~ and ~~`save()`~~ is deprecated. Should be replaced by `insertOne()` and `insertMany()`
 
 ## 6. Query Document
 ```shell
