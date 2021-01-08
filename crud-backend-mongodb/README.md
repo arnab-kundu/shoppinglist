@@ -176,3 +176,11 @@ mongorestore -db <database name> --collcetion <collection name> dump/<database n
 ```shell
 db.version()
 ```
+# Node Mongodb development
+## Json to String conversion and vise-versa
+```
+var myJson = {name:'Max', age:23};
+var resultJson = JSON.stringify(myJson);
+console.log(resultJson);
+console.log(JSON.parse(resultJson));
+```
