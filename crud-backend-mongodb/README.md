@@ -62,7 +62,7 @@ db.emp.save([
 	{ "name" : "Harry", "lastname" : "Doe", "Rank" : 4 }
 ])
 ```
-~~`insert()`~~ and ~~`save()`~~ is deprecated. Should be replaced by `insertOne()` and `insertMany()`
+> ~~`insert()`~~ and ~~`save()`~~ is deprecated and should be replaced by `insertOne()` and `insertMany()`
 
 ## 6. Query Document
 ```shell
@@ -100,14 +100,23 @@ db.emp.update({"_id" : ObjectId("5f8fd51c5ce387746c43ba63")},{$set: {"name":"Jho
 db.emp.update({"lastname":"Doe"},{$set: {"lastname":"Doe"}},{multi:true})
 db.emp.save({ "_id" : ObjectId("5f8fd51c5ce387746c43ba63"), "name" : "Jhon", "lastname" : "Doe", "Rank" : 2 })
 ```
+> Note: ~~`update()`~~ & ~~`save()`~~ is deprecated and should be replaced by `updateOne()` and `updateMany()`
+```shell
+db.products.updateOne({_id : ObjectId('5ff891d75746cd49206d2105')},{$set: {image_url:'https://i.pinimg.com/474x/57/f4/e5/57f4e587332456b10876f5f07fdeecff.jpg'}})
+db.products.updateOne({_id : ObjectId('5ff891d75746cd49206d2105')},{$set: {name:'Wooden Chair'}})
 
+```
 ## 9. MongoDB Delete Document
 ```shell
 db.emp.remove({"Rank":4})
 db.emp.remove({"lastname":"Doe"})
 db.emp.remove({"lastname":"Doe"},1)
 ```
-
+> Note: ~~`remove()`~~ is deprecated and should be replaced by `deleteOne()` & `deleteMany()`
+```shell
+db.products.deleteOne({price:7194})
+db.products.deleteMany({price:{$gt : 100000}})
+```
 ## 10. MongoDB Projection
 ```shell
 db.emp.find({},{"name":1})
