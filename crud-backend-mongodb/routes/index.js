@@ -209,7 +209,9 @@ router.get('/', function (req, res, next) {
         if (err) throw err;
         const dbo = db.db("shoppinglist");
         dbo.collection('products').insertMany(JSON.parse(dbQuery), function (err, result) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
             //console.log(JSON.stringify(res));
             db.close();
         });
@@ -220,7 +222,9 @@ router.get('/', function (req, res, next) {
         if (err) throw err;
         const dbo = db.db("shoppinglist");
         dbo.collection('users').insertOne(query, function (err, result) {
-            if (err) throw err;
+            if (err){
+                console.log(err);
+            }
             //console.log(JSON.stringify(res));
             db.close();
         });

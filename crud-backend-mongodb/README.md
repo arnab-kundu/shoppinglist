@@ -19,7 +19,13 @@ Open cmd in this path -> `C:\Program Files\MongoDB\Server\4.4\bin`. Then excute 
 | collection| Table     |
 | Document  | Row       |
 
-## 2. Install MongoChef (now Studio 3T/ nosqlbooster4mongo-5.2.9) (MongoDB GUI Tool)
+## 2. MongoDB GUI Tools
+There are many GUI tools for mongodb available in market. But unluckily we don't have any open source GUI tool for mongodb as of now.
+1. Studio 3T (Paid)
+2. nosqlbooster4mongo-5.2.9 (Paid)\
+Features:
+    1. Can generate dummy data.
+3. [DataGrip](https://www.jetbrains.com/datagrip/download/#section=windows) (30-days free trial)
 
 ## 3. Create Database and Drop Database
 ```shell
@@ -38,7 +44,11 @@ db.createCollection('<collection name>')
 db.createCollection('<collection name>',Option)
 db.<collection name>.drop()
 ```
-
+### 4.1 Create Index
+```shell
+db.collection.createIndex( <key and index type specification>, { unique: true } )
+db.users.createIndex( { "email": 1 }, { unique: true } )
+```
 ## 5. Insert Documents
 ```shell
 db.<collection name>.insert(<JSON Object/ JSON Array>)
