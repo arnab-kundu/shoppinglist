@@ -1,5 +1,6 @@
 let express = require('express');
 const router = express.Router();
+const uuid = require('uuid');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://127.0.0.1:27017/";
 
@@ -19,6 +20,34 @@ var url = "mongodb://127.0.0.1:27017/";
 router.post('/register', function (req, res, next) {
 
     console.log(req.body);
+    if (req.body.username === undefined) {
+        res.status(400).send({Success: false, message: "Missing username params"});
+        return;
+    }
+    if (req.body.email === undefined) {
+        res.status(400).send({Success: false, message: "Missing email params"});
+        return;
+    }
+    if (req.body.password === undefined) {
+        res.status(400).send({Success: false, message: "Missing password params"});
+        return;
+    }
+    req.body.id = uuid.v1();
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        const dbo = db.db("shoppinglist");
+        dbo.collection('users').insertOne(req.body, function (err, result) {
+            if (err) {
+                res.send({
+                    Success: false,
+                    error: err
+                });
+                return;
+            }
+            res.send({Success: true});
+            db.close();
+        });
+    });
 
 });
 
