@@ -38,10 +38,22 @@ router.post('/register', function (req, res, next) {
         const dbo = db.db("shoppinglist");
         dbo.collection('users').insertOne(req.body, function (err, result) {
             if (err) {
-                res.send({
-                    Success: false,
-                    error: err
-                });
+                if (err.code === 11000) {
+                    res.status(409).send({
+                        Success: false,
+                        error: err
+                    });
+                }else if(err.code === 121) {
+                    res.status(422).send({
+                        Success: false,
+                        error: err
+                    });
+                }else {
+                    res.status(400).send({
+                        Success: false,
+                        error: err
+                    });
+                }
                 return;
             }
             res.send({Success: true});

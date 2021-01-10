@@ -104,7 +104,7 @@ db.emp.save({ "_id" : ObjectId("5f8fd51c5ce387746c43ba63"), "name" : "Jhon", "la
 ```shell
 db.products.updateOne({_id : ObjectId('5ff891d75746cd49206d2105')},{$set: {image_url:'https://i.pinimg.com/474x/57/f4/e5/57f4e587332456b10876f5f07fdeecff.jpg'}})
 db.products.updateOne({_id : ObjectId('5ff891d75746cd49206d2105')},{$set: {name:'Wooden Chair'}})
-
+db.recently_viewed.updateMany({},{$set :{user_id:'0'}}) //Update all without any where clause
 ```
 ## 9. MongoDB Delete Document
 ```shell
