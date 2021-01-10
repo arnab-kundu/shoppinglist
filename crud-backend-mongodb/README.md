@@ -4,7 +4,7 @@
 
 https://www.mongodb.com/try/download/community?tck=docs_server
 https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-4.4.1-signed.msi  
-Open cmd in this path -> `C:\Program Files\MongoDB\Server\4.4\bin`. Then excute below commends to launch mondodb shell.
+Open cmd in this path -> `C:\Program Files\MongoDB\Server\4.4\bin`. Then execute below commends to launch mongodb shell.
 ```shell
 > mongod
 > mongo
@@ -177,9 +177,9 @@ show dbs
 mongodump --db <database name> --collection <collection name>
 use <database name>
 db.<collection name>.drop()
-mongorestore -db <database name> --collcetion <collection name> dump/<database name>/collection name>.bson
+mongorestore -db <database name> --collection <collection name> dump/<database name>/collection name>.bson
 ```
-**Note: Backup restore working in monogodb version 4.2 but not working in 4.4.1**
+**Note: Backup restore working in mongodb version 4.2 but not working in 4.4.1**
 
 ## To check db version
 ```shell

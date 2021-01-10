@@ -25,7 +25,20 @@ router.get('/add_product', function (req, response, next) {
         if (err) throw err;
         const dbo = db.db("shoppinglist");
         dbo.collection('recently_viewed').insertOne(JSON.parse(dbquery), function (err, result) {
-            if (err) throw err;
+            if (err) {
+                if (err.code === 11000) {
+                    response.status(409).send({
+                        Success: false,
+                        msg: err
+                    });
+                } else {
+                    response.status(400).send({
+                        Success: false,
+                        msg: err
+                    });
+                }
+                return;
+            }
             response.send(result);
             db.close();
         });
@@ -66,13 +79,13 @@ router.get('/get_products', function (req, response, next) {
 
             },
             {$match: {user_id: req.query.user_id}}
-        ]).limit(300).toArray(function (err, res) {
+        ]).limit(3).toArray(function (err, res) {
             if (err) throw err;
             for (i in res) {
                 delete res[i]["_id"];
                 delete res[i]["user_id"];
                 delete res[i]["product_id"];
-                res[i]= res[i]["my_recently_viewed"][0];
+                res[i] = res[i]["my_recently_viewed"][0];
                 delete res[i]["_id"];
             }
             response.send(res);
