@@ -31,21 +31,22 @@ MEAN Stack(MySQL, Express, Angular, Node)
 
 ### Installation guide for node
 
-1. `npm install` to install all node modules in package.json
+1. Install [NodeJs](https://nodejs.org/en/) in system
+2. `npm install` to install all node modules in package.json
 2. `npm start` to start server on `localhost:3000` port
 
 ### Language vs IDE
 | Language | jetbrains IDE | Other IDE(Free)        |
 | -------- | ------------- | ---------------------- |
 | JAVA     | intellij idea | eclipse                |
-| Ruby     | rubymine      | sublime                |
-| Angular  | webstorm      | atom                   |
+| Ruby     | rubymine      | [sublime](https://www.sublimetext.com/) |
+| Angular  | [webstorm](https://www.jetbrains.com/webstorm/)      | [atom](https://atom.io/) |
 | Php      | phpstorm      | netbeans               |
-| Python   | pycharm       | jupyter                |
+| [Python](https://www.python.org/downloads/)   | [pycharm](https://www.jetbrains.com/pycharm/download/#section=windows)       | jupyter                |
 | iOS      | appcode       | xcode                  |
-| mysql    | datagrip      | mysql workbench        |
-| mongodb  | datagrip      | mongodb                |
-| Postgres | datagrip      | pgAdmin                |
+| mysql    | datagrip      | [mysql workbench](https://dev.mysql.com/downloads/workbench/) |
+| [mongodb](https://www.mongodb.com/try/download/community)  | datagrip      | mongodb                |
+| [Postgres](https://www.postgresql.org/download/) | [datagrip](https://www.jetbrains.com/datagrip/download/#section=windows)      | pgAdmin                |
 | C / C++  | Clion         | Visual Studio for C ++ |
 | .Net     | rider         | visual studio          |
-| GoLang   | goland        | vscode                 |
+| GoLang   | goland        | [vscode](https://code.visualstudio.com/download) |
