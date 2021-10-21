@@ -1,0 +1,1 @@
+db.recently_viewed.createIndex({product_id: 1, user_id: 1}, {unique: true});
