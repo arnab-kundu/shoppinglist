@@ -24,10 +24,10 @@ router.post('/add_item', function (req, response, next) {
             password: '123456',
         },
         (err, cluster) => {
-            var bucket = cluster.bucket('shoppinglist')
-            var coll = bucket.defaultCollection()
+            var bucket = cluster.bucket('shoppinglist').scope("dev")
+            var coll = bucket.collection("items")
 
-            coll.insert('item', req.body, (err, res) => {
+            coll.insert('item1', req.body, (err, res) => {
                 if (err) {
                     console.error("Insert Error")
                     response.statusCode = 409

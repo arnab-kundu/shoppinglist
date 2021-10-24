@@ -1,0 +1,10 @@
+{
+    "server": {
+        "username": "Administrator",
+        "password": "123456"
+    },
+    "database": {
+        "bucketName": "shoppinglist",
+        "scope": "dev"
+    }
+}
