@@ -1,7 +1,6 @@
 let express = require('express');
 const router = express.Router();
 const couchbase = require('couchbase');
-const mysql = require('mysql');
 const { v4: uuidv4 } = require('uuid');
 let config = require('../config')
 
@@ -58,11 +57,24 @@ router.get('/products', function (req, response, next) {
             password: config.server.password,
         },
         (err, cluster) => {
-            var bucket = cluster.bucket(config.database.bucketName).scope(config.database.scope)
-            var coll = bucket.collection("products")
+            var bucket = cluster.bucket(config.database.bucketName)
+            var scope = bucket.scope(config.database.scope)
 
-            if (req.query.id == null) {
-                coll.get("TODO", (err, res) => {
+            if (req.query.id == undefined) {
+                scope.query("SELECT * FROM products;", (err, res) => {
+                    if (err) {
+                        console.error("No ID Get Error")
+                        response.statusCode = 404
+                        response.send(err);
+                    }
+                    response.statusCode = 200
+                    response.send(res.rows);
+                    return
+                })
+            } else {
+                var collection = scope.collection("products")
+
+                collection.get('product_' + req.query.id, (err, res) => {
                     if (err) {
                         console.error("Get Error")
                         response.statusCode = 404
@@ -70,19 +82,8 @@ router.get('/products', function (req, response, next) {
                     }
                     response.statusCode = 200
                     response.send(res.value);
-                    return
                 })
             }
-
-            coll.get('product_' + req.query.id, (err, res) => {
-                if (err) {
-                    console.error("Get Error")
-                    response.statusCode = 404
-                    response.send(err);
-                }
-                response.statusCode = 200
-                response.send(res.value);
-            })
         }
     )
 });

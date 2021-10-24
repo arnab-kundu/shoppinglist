@@ -1,7 +1,8 @@
 let express = require('express');
 const router = express.Router();
-const mysql = require('mysql');
-const uuid = require('uuid');
+const couchbase = require('couchbase');
+const { v4: uuidv4 } = require('uuid');
+let config = require('../config')
 
 
 /**
@@ -16,32 +17,31 @@ const uuid = require('uuid');
  * email:johndoe@gmail.com
  * password:password
  */
-router.post('/register', function (req, res, next) {
+router.post('/register', function (req, response, next) {
 
     console.log(req.body);
 
+    couchbase.connect(
+        'couchbase://127.0.0.1',
+        {
+            username: config.server.username,
+            password: config.server.password,
+        },
+        (err, cluster) => {
+            var bucket = cluster.bucket(config.database.bucketName).scope(config.database.scope)
+            var coll = bucket.collection("users")
 
-    var query = "Insert into `users` values('" + uuid.v1() + "', '" + req.body.username + "', '" + req.body.email + "', '" + req.body.password + "');";
-
-    var connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "password",
-        database: "shoppinglist"
-    });
-    connection.connect(function (err) {
-        if (err) {
-            console.log("ERROR:", "DB connection error", err.message);
-        } else {
-            connection.query(query, function (err, result, fields) {
-                if (err) throw err;
-                console.log("REQUEST" + req.url);
-                //console.log("RESPONSE" + result);
-                res.send(result);
-                connection.end();
-            });
+            coll.insert('user_' + uuidv4(), req.body, (err, res) => {
+                if (err) {
+                    console.error("Insert Error")
+                    response.statusCode = 409
+                    response.send(err);
+                }
+                response.statusCode = 201
+                response.send(res.value);
+            })
         }
-    });
+    )
 });
 
 
@@ -54,156 +54,134 @@ router.post('/register', function (req, res, next) {
  * email:johndoe@gmail.com
  * password:password
  */
-router.post('/login', function (req, res, next) {
+router.post('/login', function (req, response, next) {
 
-    var query = "SELECT * FROM `users` where email = '" + req.body.email + "' AND password = '" + req.body.password + "';";
-    console.log(query);
+    console.log(req.body);
 
-    var connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "password",
-        database: "shoppinglist"
-    });
-    connection.connect(function (err) {
-        if (err) {
-            console.log("ERROR:", "DB connection error", err.message);
-        } else {
-            connection.query(query, function (err, result, fields) {
-                if (err) throw err;
-                //console.log("REQUEST" + req.url);
-                //console.log("RESPONSE" + result);
-                if (result.length >= 1)
-                    res.send(result[0]);
-                else {
-                    //res.status(401) //TODO send 401
-                    res.send({
-                        "id": "-1",
-                        "username": "noname",
-                        "email": "na",
-                        "password": ""
-                    });
+    couchbase.connect(
+        'couchbase://127.0.0.1',
+        {
+            username: config.server.username,
+            password: config.server.password,
+        },
+        (err, cluster) => {
+            var bucket = cluster.bucket(config.database.bucketName).scope(config.database.scope)
+
+            bucket.query("SELECT * FROM users WHERE `email` = '" + req.body.email + "' AND `password` = '" + req.body.password + "';", (err, res) => {
+                if (err) {
+                    console.error("Login Error")
+                    response.statusCode = 403
+                    response.send(err);
                 }
-                connection.end();
-            });
+                response.statusCode = 202
+                response.send(res.rows[0].users);
+            })
         }
-    });
+    )
 });
 
 
 /**
  * EDIT User
  * TYPE PUT
- * http://localhost:3000/api/account/edit_user?id=1
+ * http://localhost:3000/api/account/edit_user?id=d86a7d0c-c246-47a7-8644-54e578b0ce4f
+ * BODY { "username": "Arnab", "email": "arnab@gmail.com", "password": "password" }
  *
  * x-www-form-urlencoded
- * username:John Doe1
- * email:johndoe1@gmail.com
+ * username: Arnab
+ * email:arnab@gmail.com
  * password:password1
  */
-router.put('/edit_user', function (req, res, next) {
+router.put('/edit_user', function (req, response, next) {
 
+    console.log(req.query.id)
     console.log(req.body)
 
+    couchbase.connect(
+        'couchbase://127.0.0.1',
+        {
+            username: config.server.username,
+            password: config.server.password,
+        },
+        (err, cluster) => {
+            var bucket = cluster.bucket(config.database.bucketName).scope(config.database.scope)
+            var coll = bucket.collection("users")
 
-    var query =
-        "UPDATE `users` SET `username` = '" + req.body.username +
-        "', `email` = '" + req.body.email + "', password = '" + req.body.password + "'  where id = " + req.body.id + ";";
-
-    var connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "password",
-        database: "shoppinglist"
-    });
-    connection.connect(function (err) {
-        if (err) {
-            console.log("ERROR:", "DB connection error", err.message);
-        } else {
-            connection.query(query, function (err, result, fields) {
-                if (err) throw err;
-                console.log("REQUEST" + req.url);
-                //console.log("RESPONSE" + result);
-                res.send(result);
-                connection.end();
-            });
+            coll.upsert('user_' + req.query.id, req.body, (err, res) => {
+                if (err) {
+                    console.error("Upsert Error")
+                    response.statusCode = 400
+                    response.send(err);
+                }
+                response.statusCode = 200
+                response.send(res.value);
+            })
         }
-    });
+    )
 });
 
 
 /**
  * DELETE User
  * TYPE DELETE
- * http://localhost:3000/api/account?id=1
+ * http://localhost:3000/api/account?id=043addc3-a4e3-44c8-8319-406ff32e4e61
  */
-router.delete('/', function (req, res, next) {
+router.delete('/', function (req, response, next) {
 
     console.log(req.query);
 
+    couchbase.connect(
+        'couchbase://127.0.0.1',
+        {
+            username: config.server.username,
+            password: config.server.password,
+        },
+        (err, cluster) => {
+            var bucket = cluster.bucket(config.database.bucketName).scope(config.database.scope)
+            var coll = bucket.collection("users")
 
-    var query = "Delete from `users` where id = '" + req.query.id + "';";
-
-    var connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "password",
-        database: "shoppinglist"
-    });
-    connection.connect(function (err) {
-        if (err) {
-            console.log("ERROR:", "DB connection error", err.message);
-        } else {
-            connection.query(query, function (err, result, fields) {
-                if (err) throw err;
-                console.log("REQUEST" + req.url);
-                //console.log("RESPONSE" + result);
-                res.send(result);
-                connection.end();
-            });
+            coll.remove('user_' + req.query.id, (err, res) => {
+                if (err) {
+                    console.error("DELETE Error")
+                    response.statusCode = 404
+                    response.send(err);
+                }
+                response.statusCode = 200
+                response.send(res.value);
+            })
         }
-    });
+    )
 });
 
 
 /**
  * Get User.
  * TYPE GET
- * http://localhost:3000/api/account/getUser?id=0d2ad590-fece-11ea-9959-ef927820ccec
+ * http://localhost:3000/api/account/getUser?id=043addc3-a4e3-44c8-8319-406ff32e4e61
  */
-router.get('/getUser', function (req, res, next) {
+router.get('/getUser', function (req, response, next) {
 
-    var query = "SELECT * FROM `users` where id = '" + req.query.id + "';";
-    console.log(query);
+    couchbase.connect(
+        'couchbase://127.0.0.1',
+        {
+            username: config.server.username,
+            password: config.server.password,
+        },
+        (err, cluster) => {
+            var bucket = cluster.bucket(config.database.bucketName).scope(config.database.scope)
+            var coll = bucket.collection("users")
 
-    var connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "password",
-        database: "shoppinglist"
-    });
-    connection.connect(function (err) {
-        if (err) {
-            console.log("ERROR:", "DB connection error", err.message);
-        } else {
-            connection.query(query, function (err, result, fields) {
-                if (err) throw err;
-                //console.log("REQUEST" + req.url);
-                //console.log("RESPONSE" + result);
-                if (result.length >= 1)
-                    res.send(result[0]);
-                else {
-                    //res.status(401) //TODO send 401
-                    res.send({
-                        "id": "-1",
-                        "username": "noname",
-                        "email": "na",
-                        "password": ""
-                    });
+            coll.get('user_' + req.query.id, (err, res) => {
+                if (err) {
+                    console.error("GET Error")
+                    response.statusCode = 404
+                    response.send(err);
                 }
-                connection.end();
-            });
+                response.statusCode = 200
+                response.send(res.value);
+            })
         }
-    });
+    )
 });
+
 module.exports = router;
